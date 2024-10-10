@@ -1,0 +1,11 @@
+.permission-label {
+  width: 100px; /* กำหนดความกว้างเท่ากันสำหรับทุกปุ่ม */
+  white-space: nowrap; /* ป้องกันการขึ้นบรรทัดใหม่ */
+  overflow: hidden; /* ซ่อนข้อความที่เกิน */
+  text-overflow: ellipsis; /* ตัดข้อความด้วย ... ถ้ามีความยาวเกิน */
+  text-align: center; /* จัดข้อความให้อยู่ตรงกลาง */
+  padding: 8px 12px; /* เพิ่มพื้นที่ในปุ่ม */
+  border-radius: 10px; /* ทำให้ขอบปุ่มเป็นมุมโค้งมน */
+  border: 1px solid #ccc; /* เพิ่มเส้นขอบ */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* เพิ่มเงาเล็กน้อย */
+}

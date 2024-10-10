@@ -28,6 +28,9 @@ export class UsersDashboardComponent implements OnInit {
   totalPages: number = 1;
   totalCount: number = 0;
   isAddUserVisible = false;
+  selectedSort: string = 'name'; // สำหรับจัดเรียง
+  savedSearches: string[] = ['Search 1', 'Search 2']; // รายการการค้นหาที่บันทึกไว้
+  selectedSavedSearch: string = '';
 
   constructor(private apiService: ApiService) {}
 
@@ -50,7 +53,7 @@ export class UsersDashboardComponent implements OnInit {
       }));
       this.filteredUsers = [...this.users];
       this.totalCount = response.totalCount;
-      this.updatePagination();
+      this.sortUsers(); // เรียกใช้การจัดเรียงเมื่อโหลดข้อมูลเสร็จ
     });
   }
 
@@ -114,5 +117,36 @@ export class UsersDashboardComponent implements OnInit {
   onUserAdded() {
     this.hideAddUserForm();
     this.loadUsers();
+  }
+
+  // ฟังก์ชันการจัดเรียง
+  sortUsers() {
+    if (this.selectedSort === 'name') {
+      this.filteredUsers.sort((a, b) => a.firstName.localeCompare(b.firstName));
+    } else if (this.selectedSort === 'date') {
+      this.filteredUsers.sort(
+        (a, b) =>
+          new Date(a.createdDate).getTime() - new Date(b.createdDate).getTime()
+      );
+    } else if (this.selectedSort === 'role') {
+      const rolePriority: { [key: string]: number } = {
+        'Super User': 4,
+        Admin: 3,
+        'HR Admin': 2,
+        Employee: 1,
+      };
+      this.filteredUsers.sort(
+        (a, b) => rolePriority[b.role.roleName] - rolePriority[a.role.roleName]
+      );
+    }
+    this.updatePagination();
+  }
+
+  // ฟังก์ชันสำหรับการใช้ Saved Search
+  applySavedSearch() {
+    if (this.selectedSavedSearch) {
+      this.searchText = this.selectedSavedSearch;
+      this.filterUsers();
+    }
   }
 }

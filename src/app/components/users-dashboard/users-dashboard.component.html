@@ -17,8 +17,26 @@
       Add user +
     </button>
     <div class="flex gap-2">
-      <button class="text-gray-500">Sort by</button>
-      <button class="text-gray-500">Saved search</button>
+      <select
+        class="text-gray-500"
+        [(ngModel)]="selectedSort"
+        (change)="sortUsers()"
+      >
+        <option value="name">Sort by Name</option>
+        <option value="date">Sort by Create Date</option>
+        <option value="role">Sort by Role</option>
+      </select>
+      <select
+        class="text-gray-500"
+        [(ngModel)]="selectedSavedSearch"
+        (change)="applySavedSearch()"
+      >
+        <option value="">Saved search</option>
+        <option *ngFor="let search of savedSearches" [value]="search">
+          {{ search }}
+        </option>
+      </select>
+      <i class="fa fa-sliders text-gray-500"></i>
     </div>
   </div>
 
@@ -62,9 +80,9 @@
           </div>
         </td>
         <td class="py-2 px-6">
-          <!-- ใช้ ngClass เพื่อกำหนดสี -->
+          <!-- ใช้ ngClass เพื่อกำหนดสีและขนาด -->
           <span
-            class="inline-block px-3 py-1 text-sm font-semibold rounded-full"
+            class="inline-block px-3 py-1 text-sm font-semibold rounded-full text-center permission-label"
             [ngClass]="{
               'bg-gray-300 text-gray-600': user.maxPermission === 'Employee',
               'bg-blue-500 text-white': user.maxPermission !== 'Employee'
