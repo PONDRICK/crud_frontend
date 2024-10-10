@@ -92,19 +92,20 @@
       <tbody>
         <tr
           *ngFor="
-            let permissionControl of userPermissions.controls;
+            let permissionControl of userPermissionsControls;
             let i = index
           "
+          [formGroup]="permissionControl"
         >
           <td class="py-2">{{ permissions[i]?.permissionName }}</td>
           <td class="py-2 text-center">
-            <input type="checkbox" [formControlName]="'isReadable'" />
+            <input type="checkbox" formControlName="isReadable" />
           </td>
           <td class="py-2 text-center">
-            <input type="checkbox" [formControlName]="'isWritable'" />
+            <input type="checkbox" formControlName="isWritable" />
           </td>
           <td class="py-2 text-center">
-            <input type="checkbox" [formControlName]="'isDeletable'" />
+            <input type="checkbox" formControlName="isDeletable" />
           </td>
         </tr>
       </tbody>

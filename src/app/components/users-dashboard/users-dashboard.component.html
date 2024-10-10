@@ -52,6 +52,10 @@
           <div>
             <p class="font-semibold">
               {{ user.firstName }} {{ user.lastName }}
+              <span class="text-sm text-gray-500"
+                >({{ user.maxPermission }})</span
+              >
+              <!-- แสดง permission สูงสุด -->
             </p>
             <p class="text-sm text-gray-500">{{ user.email }}</p>
           </div>
