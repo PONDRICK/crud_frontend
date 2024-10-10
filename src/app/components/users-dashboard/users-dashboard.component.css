@@ -9,3 +9,50 @@
   border: 1px solid #ccc; /* เพิ่มเส้นขอบ */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* เพิ่มเงาเล็กน้อย */
 }
+/* Adjust gap specifically for pagination controls */
+.pagination-controls .gap-1 {
+  gap: 0.25rem; /* Smaller gap for tighter spacing */
+}
+
+.pagination-controls select {
+  padding: 0.3rem; /* Adjust dropdown padding for better alignment */
+  margin-left: 0.25rem; /* Small margin between text and dropdown */
+}
+
+.pagination-controls span {
+  margin-left: 0.5rem; /* Space between items per page text and page info */
+}
+
+.pagination-controls button {
+  padding: 0.2rem 0.5rem; /* Reduce padding on buttons for a smaller footprint */
+  margin-left: 0.5rem; /* Adjust the space between page info and buttons */
+}
+
+/* Base styles for flexbox layout */
+.flex {
+  display: flex;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.items-center {
+  align-items: center;
+}
+.mt-4 {
+  margin-top: 1rem;
+}
+.text-gray-500 {
+  color: #6b7280;
+}
+.border {
+  border-width: 1px;
+}
+.rounded {
+  border-radius: 0.375rem;
+}
+.p-1 {
+  padding: 0.25rem;
+}
+.gap-2 {
+  gap: 0.5rem;
+}

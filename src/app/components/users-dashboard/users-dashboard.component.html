@@ -112,21 +112,47 @@
   </table>
 
   <!-- Pagination Controls -->
-  <div class="flex justify-between items-center mt-4">
-    <div>Items per page: 7</div>
-    <div>
+  <!-- Pagination Controls -->
+  <div class="flex justify-between items-center mt-4 pagination-controls">
+    <!-- Dropdown for selecting items per page -->
+    <div class="flex items-center gap-1">
+      <span class="text-gray-500">Items per page:</span>
+      <select
+        class="border border-gray-300 rounded p-1"
+        [(ngModel)]="pageSize"
+        (change)="updatePagination()"
+      >
+        <option *ngFor="let size of pageSizes" [value]="size">
+          {{ size }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Current page and total count display -->
+    <div class="flex items-center gap-1">
+      <span
+        >{{ (currentPage - 1) * pageSize + 1 }}-{{
+          currentPage * pageSize > totalCount
+            ? totalCount
+            : currentPage * pageSize
+        }}
+        of {{ totalCount }}</span
+      >
+    </div>
+
+    <!-- Pagination buttons -->
+    <div class="flex items-center gap-2">
       <button
         (click)="previousPage()"
         [disabled]="currentPage === 1"
-        class="bg-gray-300 text-gray-600 py-1 px-3 rounded"
+        class="text-gray-500"
       >
         &larr;
       </button>
-      <span>{{ currentPage }} of {{ totalPages }}</span>
       <button
         (click)="nextPage()"
         [disabled]="currentPage === totalPages"
-        class="bg-gray-300 text-gray-600 py-1 px-3 rounded"
+        class="text-gray-500"
       >
         &rarr;
       </button>
