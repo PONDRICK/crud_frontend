@@ -1,26 +1,28 @@
 <div class="p-6">
+  <!-- Search Bar -->
+  <h2 class="text-2xl font-semibold text-blue-600">Users Dashboard</h2>
   <div class="flex justify-between items-center">
-    <h2 class="text-2xl font-semibold text-blue-600">Users Dashboard</h2>
+    <input
+      type="text"
+      class="w-2/4 p-2 border border-gray-300 rounded"
+      placeholder="Search"
+      [(ngModel)]="searchText"
+      (input)="filterUsers()"
+    />
+
     <button
       class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
       (click)="showAddUserForm()"
     >
       Add user +
     </button>
-  </div>
-
-  <div class="flex justify-between mt-6">
-    <input
-      type="text"
-      class="w-2/4 p-2 border border-gray-300 rounded"
-      placeholder="Search"
-    />
     <div class="flex gap-2">
       <button class="text-gray-500">Sort by</button>
       <button class="text-gray-500">Saved search</button>
     </div>
   </div>
 
+  <!-- User List Table -->
   <table class="min-w-full bg-white shadow-md rounded-lg mt-4">
     <thead>
       <tr>
@@ -29,6 +31,9 @@
         >
           Name
         </th>
+        <th
+          class="py-2 px-6 bg-gray-100 text-left text-sm uppercase text-gray-600"
+        ></th>
         <th
           class="py-2 px-6 bg-gray-100 text-left text-sm uppercase text-gray-600"
         >
@@ -47,23 +52,31 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let user of users" class="border-b">
+      <tr *ngFor="let user of paginatedUsers" class="border-b">
         <td class="py-2 px-6">
           <div>
             <p class="font-semibold">
               {{ user.firstName }} {{ user.lastName }}
-              <span class="text-sm text-gray-500"
-                >({{ user.maxPermission }})</span
-              >
             </p>
             <p class="text-sm text-gray-500">{{ user.email }}</p>
           </div>
         </td>
         <td class="py-2 px-6">
+          <!-- ใช้ ngClass เพื่อกำหนดสี -->
+          <span
+            class="inline-block px-3 py-1 text-sm font-semibold rounded-full"
+            [ngClass]="{
+              'bg-gray-300 text-gray-600': user.maxPermission === 'Employee',
+              'bg-blue-500 text-white': user.maxPermission !== 'Employee'
+            }"
+          >
+            {{ user.maxPermission }}
+          </span>
+        </td>
+        <td class="py-2 px-6">
           {{ user.createdDate | date : "dd MMM, yyyy" }}
         </td>
         <td class="py-2 px-6">
-          <!-- แสดง roleName ตรง ๆ -->
           <span>
             {{ user.role.roleName }}
           </span>
@@ -79,6 +92,28 @@
       </tr>
     </tbody>
   </table>
+
+  <!-- Pagination Controls -->
+  <div class="flex justify-between items-center mt-4">
+    <div>Items per page: 7</div>
+    <div>
+      <button
+        (click)="previousPage()"
+        [disabled]="currentPage === 1"
+        class="bg-gray-300 text-gray-600 py-1 px-3 rounded"
+      >
+        &larr;
+      </button>
+      <span>{{ currentPage }} of {{ totalPages }}</span>
+      <button
+        (click)="nextPage()"
+        [disabled]="currentPage === totalPages"
+        class="bg-gray-300 text-gray-600 py-1 px-3 rounded"
+      >
+        &rarr;
+      </button>
+    </div>
+  </div>
 
   <!-- Add User Modal -->
   <div
