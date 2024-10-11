@@ -1,0 +1,110 @@
+<div class="popup-form">
+  <h2 class="text-xl font-semibold mb-4">Edit User</h2>
+
+  <form [formGroup]="editUserForm" (ngSubmit)="submitForm()">
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label for="firstName" class="block mb-2">First Name *</label>
+        <input
+          formControlName="firstName"
+          type="text"
+          class="border p-2 w-full rounded"
+        />
+      </div>
+      <div>
+        <label for="lastName" class="block mb-2">Last Name *</label>
+        <input
+          formControlName="lastName"
+          type="text"
+          class="border p-2 w-full rounded"
+        />
+      </div>
+      <div>
+        <label for="email" class="block mb-2">Email *</label>
+        <input
+          formControlName="email"
+          type="email"
+          class="border p-2 w-full rounded"
+        />
+      </div>
+      <div>
+        <label for="phone" class="block mb-2">Phone</label>
+        <input
+          formControlName="phone"
+          type="text"
+          class="border p-2 w-full rounded"
+        />
+      </div>
+      <div>
+        <label for="username" class="block mb-2">Username *</label>
+        <input
+          formControlName="username"
+          type="text"
+          class="border p-2 w-full rounded"
+        />
+      </div>
+      <div>
+        <label for="password" class="block mb-2">Password</label>
+        <input
+          formControlName="password"
+          type="password"
+          class="border p-2 w-full rounded"
+          placeholder="Leave blank to keep current password"
+        />
+      </div>
+      <div>
+        <label for="roleId" class="block mb-2">Select Role Type *</label>
+        <select formControlName="roleId" class="border p-2 w-full rounded">
+          <option *ngFor="let role of roles" [value]="role.roleId">
+            {{ role.roleName }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <h3 class="text-lg font-semibold mt-6 mb-4">Module Permission</h3>
+    <table class="min-w-full bg-white mb-6">
+      <thead>
+        <tr>
+          <th class="py-2">Permission</th>
+          <th class="py-2 text-center">Read</th>
+          <th class="py-2 text-center">Write</th>
+          <th class="py-2 text-center">Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="
+            let permissionControl of userPermissionsControls;
+            let i = index
+          "
+          [formGroup]="permissionControl"
+        >
+          <td class="py-2">{{ permissions[i]?.permissionName }}</td>
+          <td class="py-2 text-center">
+            <input type="checkbox" formControlName="isReadable" />
+          </td>
+          <td class="py-2 text-center">
+            <input type="checkbox" formControlName="isWritable" />
+          </td>
+          <td class="py-2 text-center">
+            <input type="checkbox" formControlName="isDeletable" />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="flex justify-end">
+      <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">
+        Save Changes
+      </button>
+      <button
+        type="button"
+        class="bg-gray-500 text-white px-4 py-2 rounded ml-2"
+        (click)="cancelForm()"
+      >
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 import { AddUserComponent } from '../add-user/add-user.component'; // Import AddUserComponent
+import { EditUserComponent } from '../edit-user/edit-user.component'; // Import EditUserComponent
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
@@ -17,8 +18,9 @@ import Swal from 'sweetalert2';
     NgForOf,
     AsyncPipe,
     AddUserComponent,
+    EditUserComponent,
     CommonModule,
-  ], // Add necessary imports
+  ],
 })
 export class UsersDashboardComponent implements OnInit {
   users: any[] = [];
@@ -26,16 +28,16 @@ export class UsersDashboardComponent implements OnInit {
   paginatedUsers: any[] = [];
   searchText: string = '';
   currentPage: number = 1;
-  pageSize: number = 6; // ค่าเริ่มต้นคือ 6
-  pageSizes: number[] = [6, 10, 20]; // ขนาดหน้าต่างๆ ให้เลือก
+  pageSize: number = 6;
+  pageSizes: number[] = [6, 10, 20];
   totalPages: number = 1;
   totalCount: number = 0;
   isAddUserVisible = false;
-
-  // New properties for sorting and saved search functionality
-  selectedSort: string = 'firstName'; // Default sorting option
-  selectedSavedSearch: string = ''; // Default saved search option
-  savedSearches: string[] = ['Search 1', 'Search 2', 'Search 3']; // Dummy saved searches
+  isEditUserVisible = false;
+  editingUserId: string | null = null;
+  selectedSort: string = 'name'; // default sort by name
+  selectedSavedSearch: string = ''; // default empty
+  savedSearches: string[] = []; // example array for saved searches
 
   constructor(private apiService: ApiService) {}
 
@@ -62,59 +64,36 @@ export class UsersDashboardComponent implements OnInit {
     });
   }
 
-  // Method to sort users based on selected option
-  sortUsers() {
-    switch (this.selectedSort) {
-      case 'firstName':
-        this.filteredUsers.sort((a, b) =>
-          a.firstName.localeCompare(b.firstName)
-        );
-        break;
-      case 'createDate':
-        this.filteredUsers.sort(
-          (a, b) =>
-            new Date(a.createdDate).getTime() -
-            new Date(b.createdDate).getTime()
-        );
-        break;
-      case 'role':
-        const rolePriority: { [key: string]: number } = {
-          Employee: 1,
-          'HR Admin': 2,
-          Admin: 3,
-          'Super User': 4,
-        };
-        this.filteredUsers.sort(
-          (a, b) =>
-            rolePriority[b.maxPermission] - rolePriority[a.maxPermission]
-        );
-        break;
-      default:
-        break;
-    }
-    this.updatePagination();
-  }
-
-  // Method to apply saved search filters
-  applySavedSearch() {
-    if (this.selectedSavedSearch === 'Search 1') {
-      // Apply some search logic here based on saved search
-    } else if (this.selectedSavedSearch === 'Search 2') {
-      // Apply another saved search filter
-    } else if (this.selectedSavedSearch === 'Search 3') {
-      // Another search logic
-    }
-    this.updatePagination();
-  }
-
   filterUsers() {
     this.filteredUsers = this.users.filter((user) =>
       `${user.firstName} ${user.lastName}`
         .toLowerCase()
         .includes(this.searchText.toLowerCase())
     );
-    this.sortUsers(); // Sort after filtering
     this.updatePagination();
+  }
+
+  sortUsers() {
+    if (this.selectedSort === 'name') {
+      this.filteredUsers.sort((a, b) => a.firstName.localeCompare(b.firstName));
+    } else if (this.selectedSort === 'date') {
+      this.filteredUsers.sort(
+        (a, b) =>
+          new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime()
+      );
+    } else if (this.selectedSort === 'role') {
+      this.filteredUsers.sort((a, b) =>
+        a.role.roleName.localeCompare(b.role.roleName)
+      );
+    }
+    this.updatePagination();
+  }
+
+  applySavedSearch() {
+    if (this.selectedSavedSearch) {
+      this.searchText = this.selectedSavedSearch;
+      this.filterUsers();
+    }
   }
 
   updatePagination() {
@@ -176,20 +155,30 @@ export class UsersDashboardComponent implements OnInit {
       text: 'Do you want to delete this user?',
       icon: 'warning',
       showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'No, keep it',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.deleteUser(userId);
-        Swal.fire('Deleted!', 'User has been deleted.', 'success');
+        this.apiService.deleteUser(userId).subscribe(() => {
+          Swal.fire('Deleted!', 'User has been deleted.', 'success');
+          this.loadUsers();
+        });
       }
     });
   }
 
-  // Method to delete the user (you should update this to use your API)
-  deleteUser(userId: string) {
-    this.apiService.deleteUser(userId).subscribe(() => {
-      this.loadUsers(); // Reload the list after deletion
-    });
+  showEditUserForm(userId: string) {
+    this.editingUserId = userId;
+    this.isEditUserVisible = true;
+  }
+
+  hideEditUserForm() {
+    this.isEditUserVisible = false;
+  }
+
+  onUserEdited() {
+    this.hideEditUserForm();
+    this.loadUsers();
   }
 }
