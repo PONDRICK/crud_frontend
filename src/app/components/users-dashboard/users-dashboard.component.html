@@ -80,7 +80,7 @@
           </div>
         </td>
         <td class="py-2 px-6">
-          <!-- ใช้ ngClass เพื่อกำหนดสีและขนาด -->
+          <!-- Use ngClass for colors and styles -->
           <span
             class="inline-block px-3 py-1 text-sm font-semibold rounded-full text-center permission-label"
             [ngClass]="{
@@ -95,15 +95,13 @@
           {{ user.createdDate | date : "dd MMM, yyyy" }}
         </td>
         <td class="py-2 px-6">
-          <span>
-            {{ user.role.roleName }}
-          </span>
+          <span>{{ user.role.roleName }}</span>
         </td>
         <td class="py-2 px-6 flex gap-3">
           <button class="text-blue-500">
             <i class="fa fa-pencil" aria-hidden="true"></i>
           </button>
-          <button class="text-red-500">
+          <button class="text-red-500" (click)="confirmDeleteUser(user.userId)">
             <i class="fa fa-trash" aria-hidden="true"></i>
           </button>
         </td>
@@ -112,9 +110,7 @@
   </table>
 
   <!-- Pagination Controls -->
-  <!-- Pagination Controls -->
-  <div class="flex justify-between items-center mt-4 pagination-controls">
-    <!-- Dropdown for selecting items per page -->
+  <div class="flex justify-center items-center mt-4 pagination-controls">
     <div class="flex items-center gap-1">
       <span class="text-gray-500">Items per page:</span>
       <select
@@ -128,7 +124,6 @@
       </select>
     </div>
 
-    <!-- Current page and total count display -->
     <div class="flex items-center gap-1">
       <span
         >{{ (currentPage - 1) * pageSize + 1 }}-{{
@@ -140,7 +135,6 @@
       >
     </div>
 
-    <!-- Pagination buttons -->
     <div class="flex items-center gap-2">
       <button
         (click)="previousPage()"

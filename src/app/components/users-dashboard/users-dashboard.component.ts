@@ -4,6 +4,7 @@ import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 import { AddUserComponent } from '../add-user/add-user.component'; // Import AddUserComponent
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-users-dashboard',
@@ -167,5 +168,28 @@ export class UsersDashboardComponent implements OnInit {
   onUserAdded() {
     this.hideAddUserForm();
     this.loadUsers();
+  }
+
+  confirmDeleteUser(userId: string) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'Do you want to delete this user?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, keep it',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.deleteUser(userId);
+        Swal.fire('Deleted!', 'User has been deleted.', 'success');
+      }
+    });
+  }
+
+  // Method to delete the user (you should update this to use your API)
+  deleteUser(userId: string) {
+    this.apiService.deleteUser(userId).subscribe(() => {
+      this.loadUsers(); // Reload the list after deletion
+    });
   }
 }
