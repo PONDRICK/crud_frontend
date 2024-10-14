@@ -1,0 +1,17 @@
+/* edit-user.component.css */
+.popup-form {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.mt-4 {
+  margin-top: 1rem;
+}
+
+.text-red-600 {
+  color: #e3342f;
+}

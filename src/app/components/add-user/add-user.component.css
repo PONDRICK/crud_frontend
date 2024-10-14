@@ -1,25 +1,17 @@
-/* ตัวอย่างการจัดการช่องว่างและขนาดของ input */
-input,
-select {
-  border: 1px solid #ccc;
-  padding: 8px;
-  border-radius: 4px;
-  width: 100%;
+/* add-user.component.css */
+.popup-form {
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
+.flex-1 {
+  flex: 1;
 }
 
-table,
-th,
-td {
-  border: 1px solid #ddd;
+.mt-4 {
+  margin-top: 1rem;
 }
 
-th,
-td {
-  padding: 8px;
-  text-align: center;
+.text-red-600 {
+  color: #e3342f;
 }

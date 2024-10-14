@@ -1,8 +1,20 @@
+// edit-user.component.ts
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormArray,
+  ValidatorFn,
+  AbstractControl,
+  ValidationErrors,
+  AsyncValidatorFn,
+} from '@angular/forms';
 import { ApiService } from '../../services/api.service';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { Observable, of } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-edit-user',
@@ -12,7 +24,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [ReactiveFormsModule, CommonModule],
 })
 export class EditUserComponent implements OnInit {
-  @Input() userId: string = ''; // รับค่า userId
+  @Input() userId: string = '';
   @Output() closeForm = new EventEmitter<void>();
   @Output() userEdited = new EventEmitter<void>();
 
@@ -21,25 +33,32 @@ export class EditUserComponent implements OnInit {
   permissions: any[] = [];
 
   constructor(private fb: FormBuilder, private apiService: ApiService) {
-    this.editUserForm = this.fb.group({
-      id: ['', Validators.required],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      phone: [''],
-      username: ['', Validators.required],
-      password: [''], // password not required
-      confirmPassword: [''],
-      roleId: ['', Validators.required],
-      userPermissions: this.fb.array([]),
-    });
+    this.editUserForm = this.fb.group(
+      {
+        id: [{ value: '', disabled: true }, Validators.required],
+        firstName: ['', Validators.required],
+        lastName: ['', Validators.required],
+        email: [
+          '',
+          {
+            validators: [Validators.required, Validators.email],
+            asyncValidators: [this.emailExistsValidator()],
+            updateOn: 'blur',
+          },
+        ],
+        phone: [''],
+        username: ['', Validators.required],
+        password: [''],
+        confirmPassword: [''],
+        roleId: ['', Validators.required],
+        userPermissions: this.fb.array([]),
+      },
+      { validators: this.passwordMatchValidator }
+    );
   }
 
   ngOnInit(): void {
     this.loadRolesAndPermissions();
-    if (this.userId) {
-      this.loadUserData();
-    }
   }
 
   loadRolesAndPermissions() {
@@ -50,6 +69,10 @@ export class EditUserComponent implements OnInit {
     this.apiService.getPermissions().subscribe((permissions) => {
       this.permissions = permissions.data;
       this.initializePermissions();
+
+      if (this.userId) {
+        this.loadUserData();
+      }
     });
   }
 
@@ -73,7 +96,7 @@ export class EditUserComponent implements OnInit {
     return this.editUserForm.get('userPermissions') as FormArray;
   }
 
-  // Getter ที่จะใช้ใน template
+  // Getter for template
   get userPermissionsControls(): FormGroup[] {
     return this.userPermissions.controls as FormGroup[];
   }
@@ -113,6 +136,83 @@ export class EditUserComponent implements OnInit {
     });
   }
 
+  // Custom Validator for Password Match
+  passwordMatchValidator: ValidatorFn = (
+    control: AbstractControl
+  ): ValidationErrors | null => {
+    const formGroup = control as FormGroup;
+    const password = formGroup.get('password')?.value;
+    const confirmPassword = formGroup.get('confirmPassword')?.value;
+    if (password !== confirmPassword) {
+      return { passwordMismatch: true };
+    } else {
+      return null;
+    }
+  };
+
+  // Async Validator to check if Email exists
+  emailExistsValidator(): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<ValidationErrors | null> => {
+      if (!control.value || control.value === this.originalEmail) {
+        return of(null);
+      }
+      return this.checkEmailExists(control.value).pipe(
+        map((exists) => (exists ? { emailExists: true } : null))
+      );
+    };
+  }
+
+  originalEmail: string = '';
+
+  // Method to check if email exists
+  checkEmailExists(email: string): Observable<boolean> {
+    const request = {
+      orderBy: 'Email',
+      orderDirection: 'ASC',
+      pageNumber: 1,
+      pageSize: 1,
+      search: email,
+    };
+    return this.apiService.getUsersDataTable(request).pipe(
+      map((response) => {
+        if (response.totalCount === 0) {
+          return false;
+        }
+        const user = response.dataSource[0];
+        return user.email === email && user.userId !== this.userId;
+      }),
+      catchError(() => of(false))
+    );
+  }
+
+  submitForm() {
+    if (this.editUserForm.invalid) {
+      this.editUserForm.markAllAsTouched();
+      return;
+    }
+
+    const userData = {
+      ...this.editUserForm.getRawValue(),
+      userPermissions: this.filterSelectedPermissions(),
+    };
+
+    // If password is empty, remove it from userData
+    if (!userData.password) {
+      delete userData.password;
+    }
+
+    this.apiService.editUser(this.userId, userData).subscribe(
+      (response) => {
+        console.log('User updated successfully', response);
+        this.userEdited.emit();
+        this.closeForm.emit();
+      },
+      (error) => {
+        console.error('Error updating user', error);
+      }
+    );
+  }
+
   filterSelectedPermissions(): any[] {
     return this.userPermissions.controls
       .filter((control) => {
@@ -128,20 +228,6 @@ export class EditUserComponent implements OnInit {
         isWritable: control.get('isWritable')?.value,
         isDeletable: control.get('isDeletable')?.value,
       }));
-  }
-
-  submitForm() {
-    if (this.editUserForm.valid) {
-      const userData = {
-        ...this.editUserForm.value,
-        userPermissions: this.filterSelectedPermissions(),
-      };
-
-      this.apiService.editUser(this.userId, userData).subscribe((response) => {
-        console.log('User updated successfully', response);
-        this.userEdited.emit();
-      });
-    }
   }
 
   cancelForm() {
