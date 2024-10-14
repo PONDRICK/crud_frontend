@@ -158,8 +158,8 @@
     *ngIf="isAddUserVisible"
     class="fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center"
   >
-    <div class="bg-white rounded-lg p-6 w-full max-w-lg">
-      <h3 class="text-lg font-medium text-gray-900 mb-4">Add New User</h3>
+    <div class="bg-white rounded-lg p-6 w-full max-w-4xl mx-auto">
+      <h3 class="text-lg font-medium text-gray-900 mb-4">Add User</h3>
       <app-add-user
         (closeForm)="hideAddUserForm()"
         (userAdded)="onUserAdded()"

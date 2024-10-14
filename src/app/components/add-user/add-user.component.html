@@ -1,24 +1,25 @@
-<!-- add-user.component.html -->
 <div class="popup-form">
   <h2 class="text-xl font-semibold mb-4">Add User</h2>
 
   <form [formGroup]="addUserForm" (ngSubmit)="submitForm()">
     <!-- User ID -->
-    <div>
-      <label for="id" class="block mb-2">User ID *</label>
-      <input
-        formControlName="id"
-        type="text"
-        class="border p-2 w-full rounded"
-      />
-      <div
-        *ngIf="
-          addUserForm.get('id')?.hasError('userIdExists') &&
-          addUserForm.get('id')?.touched
-        "
-        class="text-red-600"
-      >
-        This User ID already exists.
+    <div class="flex space-x-4">
+      <div class="flex-1">
+        <label for="id" class="block mb-2">User ID *</label>
+        <input
+          formControlName="id"
+          type="text"
+          class="border p-2 w-full rounded"
+        />
+        <div
+          *ngIf="
+            addUserForm.get('id')?.hasError('userIdExists') &&
+            addUserForm.get('id')?.touched
+          "
+          class="text-red-600"
+        >
+          This User ID already exists.
+        </div>
       </div>
     </div>
 
@@ -31,15 +32,6 @@
           type="text"
           class="border p-2 w-full rounded"
         />
-        <div
-          *ngIf="
-            addUserForm.get('firstName')?.invalid &&
-            addUserForm.get('firstName')?.touched
-          "
-          class="text-red-600"
-        >
-          First Name is required.
-        </div>
       </div>
       <div class="flex-1">
         <label for="lastName" class="block mb-2">Last Name *</label>
@@ -48,15 +40,6 @@
           type="text"
           class="border p-2 w-full rounded"
         />
-        <div
-          *ngIf="
-            addUserForm.get('lastName')?.invalid &&
-            addUserForm.get('lastName')?.touched
-          "
-          class="text-red-600"
-        >
-          Last Name is required.
-        </div>
       </div>
     </div>
 
@@ -69,33 +52,6 @@
           type="email"
           class="border p-2 w-full rounded"
         />
-        <div
-          *ngIf="
-            addUserForm.get('email')?.hasError('required') &&
-            addUserForm.get('email')?.touched
-          "
-          class="text-red-600"
-        >
-          Email is required.
-        </div>
-        <div
-          *ngIf="
-            addUserForm.get('email')?.hasError('email') &&
-            addUserForm.get('email')?.touched
-          "
-          class="text-red-600"
-        >
-          Please enter a valid email.
-        </div>
-        <div
-          *ngIf="
-            addUserForm.get('email')?.hasError('emailExists') &&
-            addUserForm.get('email')?.touched
-          "
-          class="text-red-600"
-        >
-          This email is already in use.
-        </div>
       </div>
       <div class="flex-1">
         <label for="phone" class="block mb-2">Mobile No</label>
@@ -112,15 +68,6 @@
             {{ role.roleName }}
           </option>
         </select>
-        <div
-          *ngIf="
-            addUserForm.get('roleId')?.invalid &&
-            addUserForm.get('roleId')?.touched
-          "
-          class="text-red-600"
-        >
-          Role Type is required.
-        </div>
       </div>
     </div>
 
@@ -133,15 +80,6 @@
           type="text"
           class="border p-2 w-full rounded"
         />
-        <div
-          *ngIf="
-            addUserForm.get('username')?.invalid &&
-            addUserForm.get('username')?.touched
-          "
-          class="text-red-600"
-        >
-          Username is required.
-        </div>
       </div>
       <div class="flex-1">
         <label for="password" class="block mb-2">Password *</label>
@@ -150,15 +88,6 @@
           type="password"
           class="border p-2 w-full rounded"
         />
-        <div
-          *ngIf="
-            addUserForm.get('password')?.invalid &&
-            addUserForm.get('password')?.touched
-          "
-          class="text-red-600"
-        >
-          Password is required.
-        </div>
       </div>
       <div class="flex-1">
         <label for="confirmPassword" class="block mb-2"
@@ -169,27 +98,18 @@
           type="password"
           class="border p-2 w-full rounded"
         />
-        <div
-          *ngIf="
-            addUserForm.hasError('passwordMismatch') &&
-            addUserForm.get('confirmPassword')?.touched
-          "
-          class="text-red-600"
-        >
-          Passwords do not match.
-        </div>
       </div>
     </div>
 
     <!-- Module Permission -->
     <h3 class="text-lg font-semibold mt-6 mb-4">Module Permission</h3>
-    <table class="min-w-full bg-white mb-6">
-      <thead>
+    <table class="w-full bg-white mb-6">
+      <thead class="bg-gray-100">
         <tr>
-          <th class="py-2">Permission</th>
-          <th class="py-2 text-center">Read</th>
-          <th class="py-2 text-center">Write</th>
-          <th class="py-2 text-center">Delete</th>
+          <th class="py-3 text-left">Module Permission</th>
+          <th class="py-3 text-center">Read</th>
+          <th class="py-3 text-center">Write</th>
+          <th class="py-3 text-center">Delete</th>
         </tr>
       </thead>
       <tbody>
@@ -199,16 +119,29 @@
             let i = index
           "
           [formGroup]="permissionControl"
+          class="border-b"
         >
-          <td class="py-2">{{ permissions[i]?.permissionName }}</td>
-          <td class="py-2 text-center">
-            <input type="checkbox" formControlName="isReadable" />
+          <td class="py-3 text-left">{{ permissions[i]?.permissionName }}</td>
+          <td class="py-3 text-center">
+            <input
+              type="checkbox"
+              formControlName="isReadable"
+              class="custom-checkbox"
+            />
           </td>
-          <td class="py-2 text-center">
-            <input type="checkbox" formControlName="isWritable" />
+          <td class="py-3 text-center">
+            <input
+              type="checkbox"
+              formControlName="isWritable"
+              class="custom-checkbox"
+            />
           </td>
-          <td class="py-2 text-center">
-            <input type="checkbox" formControlName="isDeletable" />
+          <td class="py-3 text-center">
+            <input
+              type="checkbox"
+              formControlName="isDeletable"
+              class="custom-checkbox"
+            />
           </td>
         </tr>
       </tbody>
