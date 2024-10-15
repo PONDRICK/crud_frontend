@@ -1,24 +1,24 @@
 <div class="p-6">
   <!-- Search Bar -->
-  <h2 class="text-2xl font-semibold text-blue-600">Users Dashboard</h2>
-  <div class="flex justify-between items-center">
+  <h2 class="text-2xl font-semibold text-blue-600 mb-4">Users Dashboard</h2>
+  <div class="flex flex-wrap justify-between items-center mb-4 gap-4">
     <input
       type="text"
-      class="w-2/4 p-2 border border-gray-300 rounded"
+      class="w-full md:w-1/2 p-2 border border-gray-300 rounded"
       placeholder="Search"
       [(ngModel)]="searchText"
       (input)="filterUsers()"
     />
 
-    <button
-      class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-      (click)="showAddUserForm()"
-    >
-      Add user +
-    </button>
-    <div class="flex gap-2">
+    <div class="flex flex-wrap items-center gap-2">
+      <button
+        class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        (click)="showAddUserForm()"
+      >
+        Add user +
+      </button>
       <select
-        class="text-gray-500"
+        class="text-gray-500 border border-gray-300 rounded p-2"
         [(ngModel)]="selectedSort"
         (change)="sortUsers()"
       >
@@ -27,7 +27,7 @@
         <option value="role">Sort by Role</option>
       </select>
       <select
-        class="text-gray-500"
+        class="text-gray-500 border border-gray-300 rounded p-2"
         [(ngModel)]="selectedSavedSearch"
         (change)="applySavedSearch()"
       >
@@ -41,7 +41,7 @@
   </div>
 
   <!-- User List Table -->
-  <table class="min-w-full bg-white shadow-md rounded-lg mt-4">
+  <table class="min-w-full bg-white shadow-md rounded-lg mt-4 overflow-hidden">
     <thead>
       <tr>
         <th
@@ -110,7 +110,9 @@
   </table>
 
   <!-- Pagination Controls -->
-  <div class="flex justify-center items-center mt-4 pagination-controls">
+  <div
+    class="flex flex-wrap justify-between items-center mt-4 pagination-controls gap-4"
+  >
     <div class="flex items-center gap-1">
       <span class="text-gray-500">Items per page:</span>
       <select
@@ -158,7 +160,7 @@
     *ngIf="isAddUserVisible"
     class="fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center"
   >
-    <div class="bg-white rounded-lg w-full max-w-4xl">
+    <div class="bg-white rounded-lg w-full max-w-4xl mx-4">
       <app-add-user
         (closeForm)="hideAddUserForm()"
         (userAdded)="onUserAdded()"
@@ -171,7 +173,7 @@
     *ngIf="isEditUserVisible"
     class="fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center"
   >
-    <div class="bg-white rounded-lg w-full max-w-4xl">
+    <div class="bg-white rounded-lg w-full max-w-4xl mx-4">
       <app-edit-user
         *ngIf="editingUserId"
         [userId]="editingUserId!"
