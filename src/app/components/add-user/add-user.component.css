@@ -1,18 +1,50 @@
-/* ปรับขนาดและความกว้างของ modal */
+/* Main container with normal padding */
 .popup-form {
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 0 auto;
+  padding: 20px; /* Normal padding */
 }
 
+/* Module Permission container with no padding */
+.module-permission-container {
+  margin-left: -20px; /* Negative Margin เพื่อลบ Padding ของพาเรนต์ */
+  margin-right: -20px;
+  width: calc(100% + 40px); /* ปรับความกว้างให้ครอบคลุมพื้นที่ */
+}
+
+/* Button styles */
+.button-submit {
+  background-color: #1d4ed8; /* Color of Add User button */
+  color: white;
+  padding: 10px 20px;
+  border-radius: 0.375rem;
+  border: none;
+  font-size: 16px;
+}
+
+.button-cancel {
+  background-color: #6b7280; /* Color of Cancel button */
+  color: white;
+  padding: 10px 20px;
+  border-radius: 0.375rem;
+  border: none;
+  font-size: 16px;
+  margin-left: 0.5rem;
+}
+
+/* Other existing CSS */
+
+/* Full width utility class */
 .w-full {
   width: 100%;
 }
 
-/* ปรับให้ modal มีขนาดกว้างเต็มที่และ responsive */
+/* Responsive max width */
 .max-w-4xl {
-  max-width: 90%; /* ปรับความกว้างสูงสุดเป็น 90% ของหน้าจอ */
+  max-width: 90%; /* Set maximum width to 90% of the screen */
 }
 
+/* Flex utilities */
 .flex-1 {
   flex: 1;
 }
@@ -21,57 +53,69 @@
   margin-top: 1rem;
 }
 
+/* Error text color */
 .text-red-600 {
   color: #e3342f;
 }
 
-/* พื้นหลังของหัวตาราง Module Permission เป็นสีฟ้าอ่อน */
+/* Light blue background for table headers */
 .bg-gray-100 {
-  background-color: #f0f4f8; /* สีฟ้าอ่อนสำหรับหัวตาราง */
+  background-color: #f0f4f8;
 }
 
-/* จัด checkbox ให้อยู่ตรงกลางและเปลี่ยนสีเป็นดำ */
+/* Center checkbox and change color to black */
 .custom-checkbox {
-  accent-color: #1f2937; /* สีดำสำหรับ checkbox */
+  accent-color: #1f2937; /* Black color for checkbox */
   width: 20px;
   height: 20px;
 }
 
-/* ปรับขอบบางสำหรับแต่ละแถว */
+/* Thin border for each row */
 .border-b {
   border-bottom: 1px solid #e5e7eb;
 }
 
-/* ปรับระยะ padding ของตาราง */
+/* Adjust table padding */
 .py-3 {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
 }
+
 .px-0 {
   padding-left: 0;
   padding-right: 0;
 }
-/* จัด checkbox ให้อยู่ตรงกลางในตาราง */
+
+/* Center text in table cells */
 .text-center {
   text-align: center;
 }
 
-/* ปรับขนาดของปุ่ม Add User และ Cancel ให้ตรงตาม design */
-.button-submit {
-  background-color: #1d4ed8; /* สีของปุ่ม Add User */
-  color: white;
-  padding: 10px 20px;
-  border-radius: 0.375rem; /* ปรับมุมให้โค้งมน */
-  border: none;
-  font-size: 16px;
+/* Table styles */
+.module-permission-container table {
+  width: 100%;
+  border-collapse: collapse;
 }
 
-.button-cancel {
-  background-color: #6b7280; /* สีของปุ่ม Cancel */
-  color: white;
-  padding: 10px 20px;
-  border-radius: 0.375rem;
+.module-permission-container th,
+.module-permission-container td {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.module-permission-container table {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.close-button {
+  font-size: 1.5rem;
+  font-weight: bold;
   border: none;
-  font-size: 16px;
-  margin-left: 0.5rem;
+  background: transparent;
+  cursor: pointer;
+}
+
+.popup-form {
+  position: relative;
 }

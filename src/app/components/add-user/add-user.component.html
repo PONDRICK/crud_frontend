@@ -1,6 +1,11 @@
 <div class="popup-form">
   <h2 class="text-xl font-semibold mb-4">Add User</h2>
-
+  <button
+    class="close-button absolute top-0 right-0 mt-2 mr-2"
+    (click)="closeForm.emit()"
+  >
+    &times;
+  </button>
   <form [formGroup]="addUserForm" (ngSubmit)="submitForm()">
     <!-- User ID -->
     <div class="flex space-x-4">
@@ -196,52 +201,53 @@
 
     <!-- Module Permission -->
     <h3 class="text-lg font-semibold mt-6 mb-4">Module Permission</h3>
-    <table class="w-full bg-white mb-6">
-      <thead class="bg-gray-100">
-        <tr>
-          <th class="py-3 text-left">Module Permission</th>
-          <th class="py-3 text-center">Read</th>
-          <th class="py-3 text-center">Write</th>
-          <th class="py-3 text-center">Delete</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          *ngFor="
-            let permissionControl of userPermissionsControls;
-            let i = index
-          "
-          [formGroup]="permissionControl"
-          class="border-b"
-        >
-          <td class="py-3 text-left">
-            {{ permissions[i]?.permissionName }}
-          </td>
-          <td class="py-3 text-center">
-            <input
-              type="checkbox"
-              formControlName="isReadable"
-              class="custom-checkbox"
-            />
-          </td>
-          <td class="py-3 text-center">
-            <input
-              type="checkbox"
-              formControlName="isWritable"
-              class="custom-checkbox"
-            />
-          </td>
-          <td class="py-3 text-center">
-            <input
-              type="checkbox"
-              formControlName="isDeletable"
-              class="custom-checkbox"
-            />
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
+    <div class="module-permission-container">
+      <table class="w-full bg-white mb-6">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="py-3 text-left">Module Permission</th>
+            <th class="py-3 text-center">Read</th>
+            <th class="py-3 text-center">Write</th>
+            <th class="py-3 text-center">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="
+              let permissionControl of userPermissionsControls;
+              let i = index
+            "
+            [formGroup]="permissionControl"
+            class="border-b"
+          >
+            <td class="py-3 text-left">
+              {{ permissions[i]?.permissionName }}
+            </td>
+            <td class="py-3 text-center">
+              <input
+                type="checkbox"
+                formControlName="isReadable"
+                class="custom-checkbox"
+              />
+            </td>
+            <td class="py-3 text-center">
+              <input
+                type="checkbox"
+                formControlName="isWritable"
+                class="custom-checkbox"
+              />
+            </td>
+            <td class="py-3 text-center">
+              <input
+                type="checkbox"
+                formControlName="isDeletable"
+                class="custom-checkbox"
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <!-- Submit and Cancel buttons -->
     <div class="flex justify-end mt-6">
       <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">
