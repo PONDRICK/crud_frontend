@@ -171,8 +171,7 @@
     *ngIf="isEditUserVisible"
     class="fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center"
   >
-    <div class="bg-white rounded-lg p-6 w-full max-w-lg">
-      <h3 class="text-lg font-medium text-gray-900 mb-4">Edit User</h3>
+    <div class="bg-white rounded-lg w-full max-w-4xl">
       <app-edit-user
         *ngIf="editingUserId"
         [userId]="editingUserId!"

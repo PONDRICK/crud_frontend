@@ -1,16 +1,27 @@
 <div class="popup-form">
+  <!-- ปุ่มปิดแบบ absolute -->
+  <button
+    class="close-button absolute top-0 right-0 mt-2 mr-2"
+    (click)="closeForm.emit()"
+  >
+    &times;
+  </button>
+
+  <!-- หัวข้อฟอร์ม -->
   <h2 class="text-xl font-semibold mb-4">Edit User</h2>
 
   <form [formGroup]="editUserForm" (ngSubmit)="submitForm()">
     <!-- User ID (read-only) -->
-    <div>
-      <label for="id" class="block mb-2">User ID *</label>
-      <input
-        formControlName="id"
-        type="text"
-        class="border p-2 w-full rounded"
-        readonly
-      />
+    <div class="flex space-x-4">
+      <div class="flex-1">
+        <label for="id" class="block mb-2">User ID *</label>
+        <input
+          formControlName="id"
+          type="text"
+          class="border p-2 w-full rounded"
+          readonly
+        />
+      </div>
     </div>
 
     <!-- First Name and Last Name -->
@@ -163,48 +174,59 @@
     </div>
 
     <!-- Module Permission -->
-    <h3 class="text-lg font-semibold mt-6 mb-4">Module Permission</h3>
-    <table class="min-w-full bg-white mb-6">
-      <thead>
-        <tr>
-          <th class="py-2 text-left">Permission</th>
-          <th class="py-2 text-center">Read</th>
-          <th class="py-2 text-center">Write</th>
-          <th class="py-2 text-center">Delete</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          *ngFor="
-            let permissionControl of userPermissionsControls;
-            let i = index
-          "
-          [formGroup]="permissionControl"
-        >
-          <td class="py-2">{{ permissions[i]?.permissionName }}</td>
-          <td class="py-2 text-center">
-            <input type="checkbox" formControlName="isReadable" />
-          </td>
-          <td class="py-2 text-center">
-            <input type="checkbox" formControlName="isWritable" />
-          </td>
-          <td class="py-2 text-center">
-            <input type="checkbox" formControlName="isDeletable" />
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <h3 class="text-lg font-semibold mt-6 mb-4"></h3>
+    <div class="module-permission-container">
+      <table class="w-full bg-white mb-6">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="py-3 text-left">Module Permission</th>
+            <th class="py-3 text-center">Read</th>
+            <th class="py-3 text-center">Write</th>
+            <th class="py-3 text-center">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="
+              let permissionControl of userPermissionsControls;
+              let i = index
+            "
+            [formGroup]="permissionControl"
+            class="border-b"
+          >
+            <td class="py-3 text-left">
+              {{ permissions[i]?.permissionName }}
+            </td>
+            <td class="py-3 text-center">
+              <input
+                type="checkbox"
+                formControlName="isReadable"
+                class="custom-checkbox"
+              />
+            </td>
+            <td class="py-3 text-center">
+              <input
+                type="checkbox"
+                formControlName="isWritable"
+                class="custom-checkbox"
+              />
+            </td>
+            <td class="py-3 text-center">
+              <input
+                type="checkbox"
+                formControlName="isDeletable"
+                class="custom-checkbox"
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
     <!-- Submit and Cancel buttons -->
     <div class="flex justify-end mt-6">
-      <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">
-        Save Changes
-      </button>
-      <button
-        type="button"
-        class="bg-gray-500 text-white px-4 py-2 rounded ml-2"
-        (click)="cancelForm()"
-      >
+      <button type="submit" class="button-submit">Save Changes</button>
+      <button type="button" class="button-cancel" (click)="closeForm.emit()">
         Cancel
       </button>
     </div>
