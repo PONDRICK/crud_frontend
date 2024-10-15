@@ -13,18 +13,23 @@
         />
         <div
           *ngIf="
-            addUserForm.get('id')?.hasError('userIdExists') &&
-            addUserForm.get('id')?.touched
+            addUserForm.get('id')?.errors && addUserForm.get('id')?.touched
           "
           class="text-red-600"
         >
-          This User ID already exists.
+          <div *ngIf="addUserForm.get('id')?.hasError('required')">
+            User ID is required.
+          </div>
+          <div *ngIf="addUserForm.get('id')?.hasError('userIdExists')">
+            This User ID already exists.
+          </div>
         </div>
       </div>
     </div>
 
     <!-- First Name and Last Name -->
     <div class="flex space-x-4 mt-4">
+      <!-- First Name -->
       <div class="flex-1">
         <label for="firstName" class="block mb-2">First Name *</label>
         <input
@@ -32,7 +37,17 @@
           type="text"
           class="border p-2 w-full rounded"
         />
+        <div
+          *ngIf="
+            addUserForm.get('firstName')?.hasError('required') &&
+            addUserForm.get('firstName')?.touched
+          "
+          class="text-red-600"
+        >
+          First Name is required.
+        </div>
       </div>
+      <!-- Last Name -->
       <div class="flex-1">
         <label for="lastName" class="block mb-2">Last Name *</label>
         <input
@@ -40,11 +55,21 @@
           type="text"
           class="border p-2 w-full rounded"
         />
+        <div
+          *ngIf="
+            addUserForm.get('lastName')?.hasError('required') &&
+            addUserForm.get('lastName')?.touched
+          "
+          class="text-red-600"
+        >
+          Last Name is required.
+        </div>
       </div>
     </div>
 
     <!-- Email, Mobile No, Select Role Type -->
     <div class="flex space-x-4 mt-4">
+      <!-- Email -->
       <div class="flex-1">
         <label for="email" class="block mb-2">Email *</label>
         <input
@@ -52,7 +77,25 @@
           type="email"
           class="border p-2 w-full rounded"
         />
+        <div
+          *ngIf="
+            addUserForm.get('email')?.errors &&
+            addUserForm.get('email')?.touched
+          "
+          class="text-red-600"
+        >
+          <div *ngIf="addUserForm.get('email')?.hasError('required')">
+            Email is required.
+          </div>
+          <div *ngIf="addUserForm.get('email')?.hasError('email')">
+            Please enter a valid email address.
+          </div>
+          <div *ngIf="addUserForm.get('email')?.hasError('emailExists')">
+            This email already exists.
+          </div>
+        </div>
       </div>
+      <!-- Mobile No -->
       <div class="flex-1">
         <label for="phone" class="block mb-2">Mobile No</label>
         <input
@@ -60,19 +103,32 @@
           type="text"
           class="border p-2 w-full rounded"
         />
+        <!-- No validation errors for phone -->
       </div>
+      <!-- Select Role Type -->
       <div class="flex-1">
         <label for="roleId" class="block mb-2">Select Role Type *</label>
         <select formControlName="roleId" class="border p-2 w-full rounded">
+          <option value="">-- Select Role --</option>
           <option *ngFor="let role of roles" [value]="role.roleId">
             {{ role.roleName }}
           </option>
         </select>
+        <div
+          *ngIf="
+            addUserForm.get('roleId')?.hasError('required') &&
+            addUserForm.get('roleId')?.touched
+          "
+          class="text-red-600"
+        >
+          Role Type is required.
+        </div>
       </div>
     </div>
 
     <!-- Username, Password, Confirm Password -->
     <div class="flex space-x-4 mt-4">
+      <!-- Username -->
       <div class="flex-1">
         <label for="username" class="block mb-2">Username *</label>
         <input
@@ -80,7 +136,17 @@
           type="text"
           class="border p-2 w-full rounded"
         />
+        <div
+          *ngIf="
+            addUserForm.get('username')?.hasError('required') &&
+            addUserForm.get('username')?.touched
+          "
+          class="text-red-600"
+        >
+          Username is required.
+        </div>
       </div>
+      <!-- Password -->
       <div class="flex-1">
         <label for="password" class="block mb-2">Password *</label>
         <input
@@ -88,7 +154,17 @@
           type="password"
           class="border p-2 w-full rounded"
         />
+        <div
+          *ngIf="
+            addUserForm.get('password')?.hasError('required') &&
+            addUserForm.get('password')?.touched
+          "
+          class="text-red-600"
+        >
+          Password is required.
+        </div>
       </div>
+      <!-- Confirm Password -->
       <div class="flex-1">
         <label for="confirmPassword" class="block mb-2"
           >Confirm Password *</label
@@ -98,7 +174,24 @@
           type="password"
           class="border p-2 w-full rounded"
         />
+        <div
+          *ngIf="
+            addUserForm.get('confirmPassword')?.hasError('required') &&
+            addUserForm.get('confirmPassword')?.touched
+          "
+          class="text-red-600"
+        >
+          Confirm Password is required.
+        </div>
       </div>
+    </div>
+
+    <!-- Form-Level Error Messages -->
+    <div
+      *ngIf="addUserForm.hasError('passwordMismatch') && addUserForm.touched"
+      class="text-red-600 mt-2"
+    >
+      Password and Confirm Password do not match.
     </div>
 
     <!-- Module Permission -->
@@ -121,7 +214,9 @@
           [formGroup]="permissionControl"
           class="border-b"
         >
-          <td class="py-3 text-left">{{ permissions[i]?.permissionName }}</td>
+          <td class="py-3 text-left">
+            {{ permissions[i]?.permissionName }}
+          </td>
           <td class="py-3 text-center">
             <input
               type="checkbox"

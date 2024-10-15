@@ -1,4 +1,3 @@
-// edit-user.component.ts
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import {
   FormBuilder,
@@ -15,13 +14,14 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-user',
   standalone: true,
   templateUrl: './edit-user.component.html',
   styleUrls: ['./edit-user.component.css'],
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, FormsModule],
 })
 export class EditUserComponent implements OnInit {
   @Input() userId: string = '';
@@ -31,6 +31,7 @@ export class EditUserComponent implements OnInit {
   editUserForm: FormGroup;
   roles: any[] = [];
   permissions: any[] = [];
+  originalEmail: string = '';
 
   constructor(private fb: FormBuilder, private apiService: ApiService) {
     this.editUserForm = this.fb.group(
@@ -103,17 +104,20 @@ export class EditUserComponent implements OnInit {
 
   loadUserData() {
     this.apiService.getUserById(this.userId).subscribe((user) => {
+      const userData = user.data;
+      this.originalEmail = userData.email;
+
       this.editUserForm.patchValue({
-        id: user.data.id,
-        firstName: user.data.firstName,
-        lastName: user.data.lastName,
-        email: user.data.email,
-        phone: user.data.phone,
-        username: user.data.username,
-        roleId: user.data.role.roleId,
+        id: userData.id,
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        email: userData.email,
+        phone: userData.phone,
+        username: userData.username,
+        roleId: userData.role.roleId,
       });
 
-      this.setUserPermissions(user.data.permissions);
+      this.setUserPermissions(userData.permissions);
     });
   }
 
@@ -143,11 +147,12 @@ export class EditUserComponent implements OnInit {
     const formGroup = control as FormGroup;
     const password = formGroup.get('password')?.value;
     const confirmPassword = formGroup.get('confirmPassword')?.value;
-    if (password !== confirmPassword) {
-      return { passwordMismatch: true };
-    } else {
-      return null;
+    if (password || confirmPassword) {
+      if (password !== confirmPassword) {
+        return { passwordMismatch: true };
+      }
     }
+    return null;
   };
 
   // Async Validator to check if Email exists
@@ -161,8 +166,6 @@ export class EditUserComponent implements OnInit {
       );
     };
   }
-
-  originalEmail: string = '';
 
   // Method to check if email exists
   checkEmailExists(email: string): Observable<boolean> {
@@ -179,7 +182,7 @@ export class EditUserComponent implements OnInit {
           return false;
         }
         const user = response.dataSource[0];
-        return user.email === email && user.userId !== this.userId;
+        return user.email === email && user.id !== this.userId;
       }),
       catchError(() => of(false))
     );
@@ -199,6 +202,7 @@ export class EditUserComponent implements OnInit {
     // If password is empty, remove it from userData
     if (!userData.password) {
       delete userData.password;
+      delete userData.confirmPassword;
     }
 
     this.apiService.editUser(this.userId, userData).subscribe(

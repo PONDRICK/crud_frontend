@@ -1,21 +1,21 @@
-<!-- edit-user.component.html -->
 <div class="popup-form">
   <h2 class="text-xl font-semibold mb-4">Edit User</h2>
 
   <form [formGroup]="editUserForm" (ngSubmit)="submitForm()">
-    <!-- User ID (read-only if you don't want it to be editable) -->
+    <!-- User ID (read-only) -->
     <div>
       <label for="id" class="block mb-2">User ID *</label>
       <input
         formControlName="id"
         type="text"
         class="border p-2 w-full rounded"
-        [readonly]="true"
+        readonly
       />
     </div>
 
     <!-- First Name and Last Name -->
     <div class="flex space-x-4 mt-4">
+      <!-- First Name -->
       <div class="flex-1">
         <label for="firstName" class="block mb-2">First Name *</label>
         <input
@@ -25,7 +25,7 @@
         />
         <div
           *ngIf="
-            editUserForm.get('firstName')?.invalid &&
+            editUserForm.get('firstName')?.hasError('required') &&
             editUserForm.get('firstName')?.touched
           "
           class="text-red-600"
@@ -33,6 +33,7 @@
           First Name is required.
         </div>
       </div>
+      <!-- Last Name -->
       <div class="flex-1">
         <label for="lastName" class="block mb-2">Last Name *</label>
         <input
@@ -42,7 +43,7 @@
         />
         <div
           *ngIf="
-            editUserForm.get('lastName')?.invalid &&
+            editUserForm.get('lastName')?.hasError('required') &&
             editUserForm.get('lastName')?.touched
           "
           class="text-red-600"
@@ -54,6 +55,7 @@
 
     <!-- Email, Mobile No, Select Role Type -->
     <div class="flex space-x-4 mt-4">
+      <!-- Email -->
       <div class="flex-1">
         <label for="email" class="block mb-2">Email *</label>
         <input
@@ -63,32 +65,23 @@
         />
         <div
           *ngIf="
-            editUserForm.get('email')?.hasError('required') &&
+            editUserForm.get('email')?.errors &&
             editUserForm.get('email')?.touched
           "
           class="text-red-600"
         >
-          Email is required.
-        </div>
-        <div
-          *ngIf="
-            editUserForm.get('email')?.hasError('email') &&
-            editUserForm.get('email')?.touched
-          "
-          class="text-red-600"
-        >
-          Please enter a valid email.
-        </div>
-        <div
-          *ngIf="
-            editUserForm.get('email')?.hasError('emailExists') &&
-            editUserForm.get('email')?.touched
-          "
-          class="text-red-600"
-        >
-          This email is already in use.
+          <div *ngIf="editUserForm.get('email')?.hasError('required')">
+            Email is required.
+          </div>
+          <div *ngIf="editUserForm.get('email')?.hasError('email')">
+            Please enter a valid email address.
+          </div>
+          <div *ngIf="editUserForm.get('email')?.hasError('emailExists')">
+            This email is already in use.
+          </div>
         </div>
       </div>
+      <!-- Mobile No -->
       <div class="flex-1">
         <label for="phone" class="block mb-2">Mobile No</label>
         <input
@@ -97,16 +90,18 @@
           class="border p-2 w-full rounded"
         />
       </div>
+      <!-- Select Role Type -->
       <div class="flex-1">
         <label for="roleId" class="block mb-2">Select Role Type *</label>
         <select formControlName="roleId" class="border p-2 w-full rounded">
+          <option value="">-- Select Role --</option>
           <option *ngFor="let role of roles" [value]="role.roleId">
             {{ role.roleName }}
           </option>
         </select>
         <div
           *ngIf="
-            editUserForm.get('roleId')?.invalid &&
+            editUserForm.get('roleId')?.hasError('required') &&
             editUserForm.get('roleId')?.touched
           "
           class="text-red-600"
@@ -118,6 +113,7 @@
 
     <!-- Username, Password, Confirm Password -->
     <div class="flex space-x-4 mt-4">
+      <!-- Username -->
       <div class="flex-1">
         <label for="username" class="block mb-2">Username *</label>
         <input
@@ -127,7 +123,7 @@
         />
         <div
           *ngIf="
-            editUserForm.get('username')?.invalid &&
+            editUserForm.get('username')?.hasError('required') &&
             editUserForm.get('username')?.touched
           "
           class="text-red-600"
@@ -135,6 +131,7 @@
           Username is required.
         </div>
       </div>
+      <!-- Password -->
       <div class="flex-1">
         <label for="password" class="block mb-2">Password</label>
         <input
@@ -144,12 +141,14 @@
           placeholder="Leave blank to keep current password"
         />
       </div>
+      <!-- Confirm Password -->
       <div class="flex-1">
         <label for="confirmPassword" class="block mb-2">Confirm Password</label>
         <input
           formControlName="confirmPassword"
           type="password"
           class="border p-2 w-full rounded"
+          placeholder="Leave blank if not changing password"
         />
         <div
           *ngIf="
@@ -168,7 +167,7 @@
     <table class="min-w-full bg-white mb-6">
       <thead>
         <tr>
-          <th class="py-2">Permission</th>
+          <th class="py-2 text-left">Permission</th>
           <th class="py-2 text-center">Read</th>
           <th class="py-2 text-center">Write</th>
           <th class="py-2 text-center">Delete</th>
