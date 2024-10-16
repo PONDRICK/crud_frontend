@@ -1,98 +1,56 @@
-.header {
-  background-color: #f9fafb; /* หรือใช้สีเดียวกับ content */
+/* Sidebar styles */
+.sidebar {
+  position: fixed; /* ทำให้ sidebar ติดอยู่กับด้านซ้าย */
+  left: 0;
+  top: 0;
+  width: 16rem;
+  height: 100vh; /* ความสูงเท่ากับความสูงของหน้าจอ */
+  background-color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 1000; /* ให้ sidebar อยู่ด้านบนสุด */
 }
 
-.bg-gray-100 {
+.sidebar ul {
+  padding: 0;
+}
+
+.sidebar li {
+  list-style: none;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.sidebar li:hover {
   background-color: #f3f4f6;
 }
+
+.sidebar li i {
+  font-size: 1.5rem;
+}
+
+.sidebar li a {
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+/* Main content adjustments */
+.main-content {
+  margin-left: 16rem; /* จัดระยะห่างจาก sidebar */
+  padding: 1rem;
+  flex-grow: 1;
+}
+
+/* Profile placeholder */
 .profile-placeholder {
   width: 40px;
   height: 40px;
-  background-color: #d1d5db; /* สีเทา */
+  background-color: #d1d5db;
   border-radius: 50%;
 }
-/* เพิ่มสไตล์สำหรับอุปกรณ์มือถือ */
-@media (max-width: 640px) {
-  /* ปรับขนาดปุ่มและฟอนต์ให้เล็กลง */
-  .permission-label {
-    width: auto;
-    font-size: 0.875rem; /* ลดขนาดฟอนต์ */
-    padding: 6px 8px; /* ลด Padding */
-  }
 
-  /* ปรับการจัดวางของตาราง */
-  table,
-  thead,
-  tbody,
-  th,
-  td,
-  tr {
-    display: block;
-  }
-
-  /* ซ่อนหัวตาราง */
-  thead tr {
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
-  }
-
-  tr {
-    margin-bottom: 1rem;
-  }
-
-  td {
-    border: none;
-    position: relative;
-    padding-left: 50%;
-  }
-
-  td:before {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 45%;
-    padding-left: 0.5rem;
-    white-space: nowrap;
-  }
-
-  /* ระบุชื่อคอลัมน์ในแต่ละเซลล์ */
-  td:nth-of-type(1):before {
-    content: "Name";
-  }
-  td:nth-of-type(2):before {
-    content: "";
-  }
-  td:nth-of-type(3):before {
-    content: "Create Date";
-  }
-  td:nth-of-type(4):before {
-    content: "Role";
-  }
-  td:nth-of-type(5):before {
-    content: "Action";
-  }
-
-  /* ปรับขนาดปุ่มใน Pagination */
-  .pagination-controls button {
-    padding: 0.2rem 0.4rem;
-  }
-}
-
-/* สไตล์เดิมของคุณ */
-.permission-label {
-  width: 100px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  text-align: center;
-  padding: 8px 12px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-/* Adjust gap specifically for pagination controls */
+/* Pagination controls */
 .pagination-controls .gap-1 {
   gap: 0.25rem;
 }
@@ -111,7 +69,7 @@
   margin-left: 0.5rem;
 }
 
-/* Base styles for flexbox layout */
+/* Flexbox layout */
 .flex {
   display: flex;
 }
@@ -128,22 +86,12 @@
   margin-top: 1rem;
 }
 
+/* Gray Text */
 .text-gray-500 {
   color: #6b7280;
 }
 
-.border {
-  border-width: 1px;
-}
-
-.rounded {
-  border-radius: 0.375rem;
-}
-
-.p-1 {
-  padding: 0.25rem;
-}
-
-.gap-2 {
-  gap: 0.5rem;
+/* Background gray */
+.bg-gray-100 {
+  background-color: #f3f4f6;
 }

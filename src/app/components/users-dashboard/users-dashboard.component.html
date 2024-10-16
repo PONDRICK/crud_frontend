@@ -1,201 +1,250 @@
-<div class="header bg-gray-100 p-4 flex justify-between items-center">
-  <div>
-    <h1 class="text-2xl font-semibold">Hello, Lekan</h1>
-    <p class="text-gray-500">Have a nice day</p>
+<div class="flex">
+  <!-- Sidebar -->
+  <div class="sidebar bg-white shadow-md">
+    <div class="p-4">
+      <h1 class="font-bold text-lg">YOURLOGO</h1>
+    </div>
+    <ul class="mt-8">
+      <li class="flex items-center p-4 text-blue-600">
+        <i class="fa fa-dashboard mr-4"></i>
+        <a href="#" class="font-semibold">Dashboard</a>
+      </li>
+      <li class="flex items-center p-4 text-gray-600">
+        <i class="fa fa-users mr-4"></i>
+        <a href="#" class="font-semibold">Users</a>
+      </li>
+      <li class="flex items-center p-4 text-gray-600">
+        <i class="fa fa-file mr-4"></i>
+        <a href="#" class="font-semibold">Documents</a>
+      </li>
+      <li class="flex items-center p-4 text-gray-600">
+        <i class="fa fa-image mr-4"></i>
+        <a href="#" class="font-semibold">Photos</a>
+      </li>
+      <li class="flex items-center p-4 text-gray-600">
+        <i class="fa fa-sitemap mr-4"></i>
+        <a href="#" class="font-semibold">Hierarchy</a>
+      </li>
+      <li class="flex items-center p-4 text-gray-600">
+        <i class="fa fa-comment mr-4"></i>
+        <a href="#" class="font-semibold">Message</a>
+      </li>
+      <li class="flex items-center p-4 text-gray-600">
+        <i class="fa fa-question-circle mr-4"></i>
+        <a href="#" class="font-semibold">Help</a>
+      </li>
+      <li class="flex items-center p-4 text-gray-600">
+        <i class="fa fa-cog mr-4"></i>
+        <a href="#" class="font-semibold">Setting</a>
+      </li>
+    </ul>
   </div>
-  <div class="flex items-center gap-2">
-    <i class="fa fa-bell text-gray-500"></i>
-    <div class="flex items-center gap-2">
-      <div class="profile-placeholder"></div>
+
+  <!-- Main Content -->
+  <div class="main-content flex-1 p-6">
+    <!-- Header Section -->
+    <div class="header bg-gray-100 p-4 flex justify-between items-center">
       <div>
-        <p class="font-semibold">Lekan Okeowo</p>
-        <p class="text-gray-500 text-sm">Admin</p>
+        <h1 class="text-2xl font-semibold">Hello, Lekan</h1>
+        <p class="text-gray-500">Have a nice day</p>
+      </div>
+      <div class="flex items-center gap-2">
+        <i class="fa fa-bell text-gray-500"></i>
+        <div class="flex items-center gap-2">
+          <div class="profile-placeholder"></div>
+          <div>
+            <p class="font-semibold">Lekan Okeowo</p>
+            <p class="text-gray-500 text-sm">Admin</p>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-<div class="p-6">
-  <!-- Search Bar -->
-  <h2 class="text-2xl font-semibold text-blue-600 mb-4">Users Dashboard</h2>
-  <div class="flex flex-wrap justify-between items-center mb-4 gap-4">
-    <input
-      type="text"
-      class="w-full md:w-1/2 p-2 border border-gray-300 rounded"
-      placeholder="Search"
-      [(ngModel)]="searchText"
-      (input)="filterUsers()"
-    />
 
-    <div class="flex flex-wrap items-center gap-2">
-      <button
-        class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        (click)="showAddUserForm()"
-      >
-        Add user +
-      </button>
-      <select
-        class="text-gray-500 border border-gray-300 rounded p-2"
-        [(ngModel)]="selectedSort"
-        (change)="sortUsers()"
-      >
-        <option value="name">Sort by Name</option>
-        <option value="date">Sort by Create Date</option>
-        <option value="role">Sort by Role</option>
-      </select>
-      <select
-        class="text-gray-500 border border-gray-300 rounded p-2"
-        [(ngModel)]="selectedSavedSearch"
-        (change)="applySavedSearch()"
-      >
-        <option value="">Saved search</option>
-        <option *ngFor="let search of savedSearches" [value]="search">
-          {{ search }}
-        </option>
-      </select>
-      <i class="fa fa-sliders text-gray-500"></i>
+    <!-- Search Bar & User List -->
+    <h2 class="text-2xl font-semibold text-blue-600 mb-4">Users Dashboard</h2>
+    <div class="flex flex-wrap justify-between items-center mb-4 gap-4">
+      <input
+        type="text"
+        class="w-full md:w-1/2 p-2 border border-gray-300 rounded"
+        placeholder="Search"
+        [(ngModel)]="searchText"
+        (input)="filterUsers()"
+      />
+
+      <div class="flex flex-wrap items-center gap-2">
+        <button
+          class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          (click)="showAddUserForm()"
+        >
+          Add user +
+        </button>
+        <select
+          class="text-gray-500 border border-gray-300 rounded p-2"
+          [(ngModel)]="selectedSort"
+          (change)="sortUsers()"
+        >
+          <option value="name">Sort by Name</option>
+          <option value="date">Sort by Create Date</option>
+          <option value="role">Sort by Role</option>
+        </select>
+        <select
+          class="text-gray-500 border border-gray-300 rounded p-2"
+          [(ngModel)]="selectedSavedSearch"
+          (change)="applySavedSearch()"
+        >
+          <option value="">Saved search</option>
+          <option *ngFor="let search of savedSearches" [value]="search">
+            {{ search }}
+          </option>
+        </select>
+        <i class="fa fa-sliders text-gray-500"></i>
+      </div>
     </div>
-  </div>
 
-  <!-- User List Table -->
-  <table class="min-w-full bg-white shadow-md rounded-lg mt-4 overflow-hidden">
-    <thead>
-      <tr>
-        <th
-          class="py-2 px-6 bg-gray-100 text-left text-sm uppercase text-gray-600"
-        >
-          Name
-        </th>
-        <th
-          class="py-2 px-6 bg-gray-100 text-left text-sm uppercase text-gray-600"
-        ></th>
-        <th
-          class="py-2 px-6 bg-gray-100 text-left text-sm uppercase text-gray-600"
-        >
-          Create Date
-        </th>
-        <th
-          class="py-2 px-6 bg-gray-100 text-left text-sm uppercase text-gray-600"
-        >
-          Role
-        </th>
-        <th
-          class="py-2 px-6 bg-gray-100 text-left text-sm uppercase text-gray-600"
-        >
-          Action
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let user of paginatedUsers" class="border-b">
-        <td class="py-2 px-6">
-          <div>
-            <p class="font-semibold">
-              {{ user.firstName }} {{ user.lastName }}
-            </p>
-            <p class="text-sm text-gray-500">{{ user.email }}</p>
-          </div>
-        </td>
-        <td class="py-2 px-6">
-          <!-- Use ngClass for colors and styles -->
-          <span
-            class="inline-block px-3 py-1 text-sm font-semibold rounded-full text-center permission-label"
-            [ngClass]="{
-              'bg-gray-300 text-gray-600': user.maxPermission === 'Employee',
-              'bg-blue-500 text-white': user.maxPermission !== 'Employee'
-            }"
+    <!-- User List Table -->
+    <table
+      class="min-w-full bg-white shadow-md rounded-lg mt-4 overflow-hidden"
+    >
+      <thead>
+        <tr>
+          <th
+            class="py-2 px-6 bg-gray-100 text-left text-sm uppercase text-gray-600"
           >
-            {{ user.maxPermission }}
-          </span>
-        </td>
-        <td class="py-2 px-6">
-          {{ user.createdDate | date : "dd MMM, yyyy" }}
-        </td>
-        <td class="py-2 px-6">
-          <span>{{ user.role.roleName }}</span>
-        </td>
-        <td class="py-2 px-6 flex gap-3">
-          <button class="text-blue-500" (click)="showEditUserForm(user.userId)">
-            <i class="fa fa-pencil" aria-hidden="true"></i>
-          </button>
-          <button class="text-red-500" (click)="confirmDeleteUser(user.userId)">
-            <i class="fa fa-trash" aria-hidden="true"></i>
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+            Name
+          </th>
+          <th
+            class="py-2 px-6 bg-gray-100 text-left text-sm uppercase text-gray-600"
+          ></th>
+          <th
+            class="py-2 px-6 bg-gray-100 text-left text-sm uppercase text-gray-600"
+          >
+            Create Date
+          </th>
+          <th
+            class="py-2 px-6 bg-gray-100 text-left text-sm uppercase text-gray-600"
+          >
+            Role
+          </th>
+          <th
+            class="py-2 px-6 bg-gray-100 text-left text-sm uppercase text-gray-600"
+          >
+            Action
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of paginatedUsers" class="border-b">
+          <td class="py-2 px-6">
+            <div>
+              <p class="font-semibold">
+                {{ user.firstName }} {{ user.lastName }}
+              </p>
+              <p class="text-sm text-gray-500">{{ user.email }}</p>
+            </div>
+          </td>
+          <td class="py-2 px-6">
+            <span
+              class="inline-block px-3 py-1 text-sm font-semibold rounded-full text-center permission-label"
+              [ngClass]="{
+                'bg-gray-300 text-gray-600': user.maxPermission === 'Employee',
+                'bg-blue-500 text-white': user.maxPermission !== 'Employee'
+              }"
+            >
+              {{ user.maxPermission }}
+            </span>
+          </td>
+          <td class="py-2 px-6">
+            {{ user.createdDate | date : "dd MMM, yyyy" }}
+          </td>
+          <td class="py-2 px-6">{{ user.role.roleName }}</td>
+          <td class="py-2 px-6 flex gap-3">
+            <button
+              class="text-blue-500"
+              (click)="showEditUserForm(user.userId)"
+            >
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </button>
+            <button
+              class="text-red-500"
+              (click)="confirmDeleteUser(user.userId)"
+            >
+              <i class="fa fa-trash" aria-hidden="true"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
-  <!-- Pagination Controls -->
-  <div
-    class="flex flex-wrap justify-between items-center mt-4 pagination-controls gap-4"
-  >
-    <div class="flex items-center gap-1">
-      <span class="text-gray-500">Items per page:</span>
-      <select
-        class="border border-gray-300 rounded p-1"
-        [(ngModel)]="pageSize"
-        (change)="updatePagination()"
-      >
-        <option *ngFor="let size of pageSizes" [value]="size">
-          {{ size }}
-        </option>
-      </select>
+    <!-- Pagination Controls -->
+    <div
+      class="flex flex-wrap justify-between items-center mt-4 pagination-controls gap-4"
+    >
+      <div class="flex items-center gap-1">
+        <span class="text-gray-500">Items per page:</span>
+        <select
+          class="border border-gray-300 rounded p-1"
+          [(ngModel)]="pageSize"
+          (change)="updatePagination()"
+        >
+          <option *ngFor="let size of pageSizes" [value]="size">
+            {{ size }}
+          </option>
+        </select>
+      </div>
+      <div class="flex items-center gap-1">
+        <span
+          >{{ (currentPage - 1) * pageSize + 1 }}-{{
+            currentPage * pageSize > totalCount
+              ? totalCount
+              : currentPage * pageSize
+          }}
+          of {{ totalCount }}</span
+        >
+      </div>
+      <div class="flex items-center gap-2">
+        <button
+          (click)="previousPage()"
+          [disabled]="currentPage === 1"
+          class="text-gray-500"
+        >
+          &larr;
+        </button>
+        <button
+          (click)="nextPage()"
+          [disabled]="currentPage === totalPages"
+          class="text-gray-500"
+        >
+          &rarr;
+        </button>
+      </div>
     </div>
 
-    <div class="flex items-center gap-1">
-      <span
-        >{{ (currentPage - 1) * pageSize + 1 }}-{{
-          currentPage * pageSize > totalCount
-            ? totalCount
-            : currentPage * pageSize
-        }}
-        of {{ totalCount }}</span
-      >
+    <!-- Add User Modal -->
+    <div
+      *ngIf="isAddUserVisible"
+      class="fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center"
+    >
+      <div class="bg-white rounded-lg w-full max-w-4xl mx-4">
+        <app-add-user
+          (closeForm)="hideAddUserForm()"
+          (userAdded)="onUserAdded()"
+        ></app-add-user>
+      </div>
     </div>
 
-    <div class="flex items-center gap-2">
-      <button
-        (click)="previousPage()"
-        [disabled]="currentPage === 1"
-        class="text-gray-500"
-      >
-        &larr;
-      </button>
-      <button
-        (click)="nextPage()"
-        [disabled]="currentPage === totalPages"
-        class="text-gray-500"
-      >
-        &rarr;
-      </button>
-    </div>
-  </div>
-
-  <!-- Add User Modal -->
-  <div
-    *ngIf="isAddUserVisible"
-    class="fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center"
-  >
-    <div class="bg-white rounded-lg w-full max-w-4xl mx-4">
-      <app-add-user
-        (closeForm)="hideAddUserForm()"
-        (userAdded)="onUserAdded()"
-      ></app-add-user>
-    </div>
-  </div>
-
-  <!-- Edit User Modal -->
-  <div
-    *ngIf="isEditUserVisible"
-    class="fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center"
-  >
-    <div class="bg-white rounded-lg w-full max-w-4xl mx-4">
-      <app-edit-user
-        *ngIf="editingUserId"
-        [userId]="editingUserId!"
-        (closeForm)="hideEditUserForm()"
-        (userEdited)="onUserEdited()"
-      ></app-edit-user>
+    <!-- Edit User Modal -->
+    <div
+      *ngIf="isEditUserVisible"
+      class="fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center"
+    >
+      <div class="bg-white rounded-lg w-full max-w-4xl mx-4">
+        <app-edit-user
+          *ngIf="editingUserId"
+          [userId]="editingUserId!"
+          (closeForm)="hideEditUserForm()"
+          (userEdited)="onUserEdited()"
+        ></app-edit-user>
+      </div>
     </div>
   </div>
 </div>
