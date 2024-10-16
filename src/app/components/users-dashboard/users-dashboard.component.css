@@ -1,3 +1,16 @@
+.header {
+  background-color: #f9fafb; /* หรือใช้สีเดียวกับ content */
+}
+
+.bg-gray-100 {
+  background-color: #f3f4f6;
+}
+.profile-placeholder {
+  width: 40px;
+  height: 40px;
+  background-color: #d1d5db; /* สีเทา */
+  border-radius: 50%;
+}
 /* เพิ่มสไตล์สำหรับอุปกรณ์มือถือ */
 @media (max-width: 640px) {
   /* ปรับขนาดปุ่มและฟอนต์ให้เล็กลง */
