@@ -3,7 +3,7 @@
   position: fixed; /* Fixed to the left edge */
   left: 0;
   top: 0;
-  width: 15%; /* Use 15% of the screen width */
+  width: 15%; /* Adjusted for responsiveness */
   height: 100vh; /* Full viewport height */
   background-color: white;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -41,8 +41,7 @@
   margin-left: 15%; /* Leave space for the sidebar */
   width: 85%; /* Use the remaining screen width */
   padding: 1rem;
-  max-height: 100vh; /* Don't exceed viewport height */
-  overflow-y: auto; /* Internal scroll if content overflows */
+  /* Removed max-height and overflow-y to prevent scroll bars */
 }
 
 /* Profile placeholder */
@@ -54,6 +53,14 @@
 }
 
 /* Pagination controls */
+.pagination-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  gap: 1rem;
+}
+
 .pagination-controls .gap-1 {
   gap: 0.25rem;
 }
@@ -105,6 +112,7 @@ table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 1rem;
+  table-layout: fixed; /* Ensure the table fits within its container */
 }
 
 th,
@@ -113,6 +121,7 @@ td {
   text-align: left;
   font-size: 0.875rem;
   color: #4a4a4a;
+  word-wrap: break-word; /* Prevent long content from overflowing */
 }
 
 thead {
@@ -171,7 +180,7 @@ td button:hover {
   max-width: 700px;
   padding: 0.05rem 0.5rem;
   padding-left: 20px;
-  margin-left: -15px; /* ขยับไปทางซ้ายเล็กน้อย */
+  margin-left: -15px; /* Adjusted positioning */
   background-color: #ffffff;
   border-radius: 0.375rem;
   display: flex;
@@ -273,23 +282,23 @@ select:focus {
 /* Responsive Design with Media Queries */
 @media (max-width: 1024px) {
   .sidebar {
-    width: 12%; /* Adjust sidebar width for smaller screens */
+    width: 20%; /* Adjusted sidebar width for medium screens */
   }
 
   .main-content {
-    margin-left: 12%;
-    width: 88%;
+    margin-left: 20%;
+    width: 80%;
   }
 }
 
 @media (max-width: 768px) {
   .sidebar {
-    width: 10%;
+    width: 25%; /* Adjusted sidebar width for smaller screens */
   }
 
   .main-content {
-    margin-left: 10%;
-    width: 90%;
+    margin-left: 25%;
+    width: 75%;
     padding: 1rem;
   }
 
@@ -373,11 +382,22 @@ select:focus {
   }
 }
 
-/* Additional styles to prevent overflow */
+@media (min-width: 1920px) {
+  .sidebar {
+    width: 12%; /* Adjusted sidebar width for larger screens */
+  }
+
+  .main-content {
+    margin-left: 12%;
+    width: 88%;
+  }
+}
+
+/* Additional styles */
 body {
   margin: 0;
   padding: 0;
-  overflow: hidden; /* Prevent scroll bars */
+  /* Removed overflow: hidden to prevent scroll bars */
 }
 
 html,
@@ -386,7 +406,9 @@ body {
   height: 100%;
 }
 
-.main-content,
-.sidebar {
-  max-height: 100vh;
+/* Adjust modal styling */
+.fixed {
+  position: fixed;
+  inset: 0;
+  overflow: auto; /* Allow modal content to scroll if necessary */
 }
