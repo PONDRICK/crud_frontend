@@ -353,3 +353,11 @@ td button:hover {
   background-color: #f1f3f5; /* เทาอ่อน */
   color: #adb5bd; /* สีเทาอ่อนสำหรับข้อความ */
 }
+/* เพิ่มสไตล์นี้ */
+.custom-search-bar {
+  width: 100%; /* ปรับความกว้างตามที่ต้องการ */
+  max-width: 700px; /* กำหนดความกว้างสูงสุด */
+  padding: 0.05rem 0.5rem;
+  padding-left: 20px;
+  margin-left: 0;
+}
