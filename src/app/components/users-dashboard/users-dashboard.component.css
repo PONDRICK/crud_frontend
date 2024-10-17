@@ -1,13 +1,13 @@
 /* Sidebar styles */
 .sidebar {
-  position: fixed; /* ทำให้ sidebar ติดอยู่กับด้านซ้าย */
+  position: fixed; /* ติดกับขอบซ้าย */
   left: 0;
   top: 0;
   width: 16rem;
-  height: 100vh; /* ความสูงเท่ากับความสูงของหน้าจอ */
+  height: 100vh;
   background-color: white;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  z-index: 1000; /* ให้ sidebar อยู่ด้านบนสุด */
+  z-index: 1000;
 }
 
 .sidebar ul {
@@ -37,7 +37,7 @@
 
 /* Main content adjustments */
 .main-content {
-  margin-left: 16rem; /* จัดระยะห่างจาก sidebar */
+  margin-left: 16rem;
   padding: 1rem;
   flex-grow: 1;
 }
@@ -65,6 +65,7 @@
 }
 
 .pagination-controls button {
+  background-color: transparent;
   padding: 0.2rem 0.5rem;
   margin-left: 0.5rem;
 }
@@ -94,4 +95,261 @@
 /* Background gray */
 .bg-gray-100 {
   background-color: #f3f4f6;
+}
+
+/* Table styles */
+.table {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+td,
+th {
+  padding: 1rem;
+  text-align: left;
+  font-size: 0.875rem;
+  color: #4a4a4a;
+}
+
+thead {
+  background-color: #f3f4f6;
+}
+
+tr:hover {
+  background-color: #f3f4f6;
+}
+
+td:first-of-type {
+  font-weight: bold;
+}
+
+button {
+  padding: 0.5rem;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+button:hover {
+  color: #000;
+}
+
+.shadow-md {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+
+.bg-white {
+  background-color: #ffffff;
+}
+
+.hover\:bg-gray-50:hover {
+  background-color: #f9fafb;
+}
+
+/* Adjusting the search bar and controls */
+.bg-gray-100 {
+  background-color: #f3f4f6;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  outline: none;
+}
+
+input::placeholder {
+  color: #9ca3af;
+}
+
+button {
+  background-color: #3b82f6; /* Blue color */
+
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #2563eb;
+  color: white;
+}
+
+select {
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  border: 1px solid #d1d5db;
+  color: #6b7280;
+}
+
+select:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.fa-sliders {
+  font-size: 1.25rem;
+}
+
+.flex {
+  display: flex;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.gap-4 {
+  gap: 1rem;
+}
+
+.rounded {
+  border-radius: 0.375rem;
+}
+
+.bg-white {
+  background-color: #ffffff;
+}
+
+.shadow-sm {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.shadow {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Design with Media Queries */
+@media (max-width: 1024px) {
+  .sidebar {
+    position: absolute;
+    width: 12rem; /* Adjust sidebar width for smaller screens */
+  }
+
+  .main-content {
+    margin-left: 12rem; /* Adjust content margin */
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    position: absolute;
+    width: 10rem; /* Reduce width further */
+  }
+
+  .main-content {
+    margin-left: 10rem;
+    padding: 1rem;
+  }
+
+  table {
+    display: block; /* Make table scrollable */
+    overflow-x: auto;
+  }
+
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+  }
+
+  td {
+    padding-left: 50%; /* Adjust for smaller screens */
+  }
+
+  td:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 45%;
+    padding-left: 0.5rem;
+    white-space: nowrap;
+  }
+
+  td:nth-of-type(1):before {
+    content: "Name";
+  }
+  td:nth-of-type(2):before {
+    content: "";
+  }
+  td:nth-of-type(3):before {
+    content: "Create Date";
+  }
+  td:nth-of-type(4):before {
+    content: "Role";
+  }
+  td:nth-of-type(5):before {
+    content: "Action";
+  }
+}
+
+@media (max-width: 640px) {
+  .sidebar {
+    display: none; /* Hide sidebar on very small screens */
+  }
+
+  .main-content {
+    margin-left: 0;
+    padding: 1rem;
+  }
+
+  .header,
+  .pagination-controls {
+    flex-direction: column;
+  }
+
+  input {
+    width: 100%;
+  }
+}
+td button {
+  background-color: transparent; /* เอาพื้นหลังสีฟ้าออก */
+  border: none; /* ไม่มีเส้นขอบ */
+  color: #cbd5e1; /* ใช้สีอ่อน */
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+td button:hover {
+  color: #64748b; /* เปลี่ยนสีเมื่อ hover */
+}
+
+.fa-pencil,
+.fa-trash {
+  font-size: 1.25rem;
+}
+.permission-label {
+  display: inline-block;
+  padding: 0.5rem 1.5rem; /* เพิ่ม padding ด้านข้างให้กว้างขึ้น */
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 12px; /* ปรับให้เป็นมุมโค้งมนเล็กน้อย */
+  text-align: center;
+  width: 120px; /* ทำให้ทุกป้ายมีขนาดกว้างเท่ากัน */
+  line-height: 1.2; /* ทำให้ข้อความอยู่ในแนวเดียวกัน */
+}
+
+.permission-super-admin,
+.permission-admin,
+.permission-hr-admin {
+  background-color: #3b82f6; /* ฟ้าเข้ม */
+  color: white;
+}
+
+.permission-employee {
+  background-color: #f1f3f5; /* เทาอ่อน */
+  color: #adb5bd; /* สีเทาอ่อนสำหรับข้อความ */
 }

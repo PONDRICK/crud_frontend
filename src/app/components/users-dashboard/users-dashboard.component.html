@@ -62,33 +62,44 @@
 
     <!-- Search Bar & User List -->
     <h2 class="text-2xl font-semibold text-blue-600 mb-4">Users Dashboard</h2>
-    <div class="flex flex-wrap justify-between items-center mb-4 gap-4">
-      <input
-        type="text"
-        class="w-full md:w-1/2 p-2 border border-gray-300 rounded"
-        placeholder="Search"
-        [(ngModel)]="searchText"
-        (input)="filterUsers()"
-      />
 
-      <div class="flex flex-wrap items-center gap-2">
+    <!-- Search Bar & Controls -->
+    <div
+      class="flex flex-wrap justify-between items-center mb-4 gap-4 bg-gray-100 p-4 rounded-lg"
+    >
+      <div
+        class="flex items-center w-full md:w-1/2 bg-white rounded-md shadow-sm border border-gray-300 p-2"
+      >
+        <i class="fa fa-search text-gray-400 mr-2"></i>
+        <input
+          type="text"
+          class="flex-grow bg-transparent outline-none"
+          placeholder="Search"
+          [(ngModel)]="searchText"
+          (input)="filterUsers()"
+        />
+      </div>
+
+      <div class="flex items-center gap-4">
         <button
-          class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow"
           (click)="showAddUserForm()"
         >
           Add user +
         </button>
+
         <select
-          class="text-gray-500 border border-gray-300 rounded p-2"
+          class="border border-gray-300 rounded p-2 text-gray-600"
           [(ngModel)]="selectedSort"
           (change)="sortUsers()"
         >
-          <option value="name">Sort by Name</option>
-          <option value="date">Sort by Create Date</option>
-          <option value="role">Sort by Role</option>
+          <option value="name">Sort by</option>
+          <option value="date">Create Date</option>
+          <option value="role">Role</option>
         </select>
+
         <select
-          class="text-gray-500 border border-gray-300 rounded p-2"
+          class="border border-gray-300 rounded p-2 text-gray-600"
           [(ngModel)]="selectedSavedSearch"
           (change)="applySavedSearch()"
         >
@@ -97,7 +108,8 @@
             {{ search }}
           </option>
         </select>
-        <i class="fa fa-sliders text-gray-500"></i>
+
+        <i class="fa fa-sliders text-gray-500 cursor-pointer"></i>
       </div>
     </div>
 
@@ -133,21 +145,26 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let user of paginatedUsers" class="border-b">
+        <tr
+          *ngFor="let user of paginatedUsers"
+          class="border-b hover:bg-gray-50"
+        >
           <td class="py-2 px-6">
-            <div>
-              <p class="font-semibold">
-                {{ user.firstName }} {{ user.lastName }}
-              </p>
-              <p class="text-sm text-gray-500">{{ user.email }}</p>
+            <div class="flex flex-col">
+              <span class="font-semibold"
+                >{{ user.firstName }} {{ user.lastName }}</span
+              >
+              <span class="text-gray-500 text-sm">{{ user.email }}</span>
             </div>
           </td>
           <td class="py-2 px-6">
             <span
-              class="inline-block px-3 py-1 text-sm font-semibold rounded-full text-center permission-label"
+              class="permission-label"
               [ngClass]="{
-                'bg-gray-300 text-gray-600': user.maxPermission === 'Employee',
-                'bg-blue-500 text-white': user.maxPermission !== 'Employee'
+                'permission-super-admin': user.maxPermission === 'Super User',
+                'permission-admin': user.maxPermission === 'Admin',
+                'permission-hr-admin': user.maxPermission === 'HR Admin',
+                'permission-employee': user.maxPermission === 'Employee'
               }"
             >
               {{ user.maxPermission }}
@@ -157,15 +174,15 @@
             {{ user.createdDate | date : "dd MMM, yyyy" }}
           </td>
           <td class="py-2 px-6">{{ user.role.roleName }}</td>
-          <td class="py-2 px-6 flex gap-3">
+          <td class="py-2 px-6 flex gap-2">
             <button
-              class="text-blue-500"
+              class="text-gray-400 hover:text-gray-600"
               (click)="showEditUserForm(user.userId)"
             >
               <i class="fa fa-pencil" aria-hidden="true"></i>
             </button>
             <button
-              class="text-red-500"
+              class="text-gray-400 hover:text-gray-600"
               (click)="confirmDeleteUser(user.userId)"
             >
               <i class="fa fa-trash" aria-hidden="true"></i>
@@ -182,7 +199,7 @@
       <div class="flex items-center gap-1">
         <span class="text-gray-500">Items per page:</span>
         <select
-          class="border border-gray-300 rounded p-1"
+          class="border-none bg-transparent text-gray-600 p-1 underline focus:outline-none focus:ring-0"
           [(ngModel)]="pageSize"
           (change)="updatePagination()"
         >
@@ -191,7 +208,8 @@
           </option>
         </select>
       </div>
-      <div class="flex items-center gap-1">
+
+      <div class="flex items-center gap-1 text-gray-500">
         <span
           >{{ (currentPage - 1) * pageSize + 1 }}-{{
             currentPage * pageSize > totalCount
@@ -201,20 +219,21 @@
           of {{ totalCount }}</span
         >
       </div>
-      <div class="flex items-center gap-2">
+
+      <div class="flex items-center gap-2 text-gray-500">
         <button
           (click)="previousPage()"
           [disabled]="currentPage === 1"
-          class="text-gray-500"
+          class="disabled:text-gray-300"
         >
-          &larr;
+          <i class="fa fa-chevron-left"></i>
         </button>
         <button
           (click)="nextPage()"
           [disabled]="currentPage === totalPages"
-          class="text-gray-500"
+          class="disabled:text-gray-300"
         >
-          &rarr;
+          <i class="fa fa-chevron-right"></i>
         </button>
       </div>
     </div>
