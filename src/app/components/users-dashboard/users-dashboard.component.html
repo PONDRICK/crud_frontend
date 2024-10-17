@@ -123,6 +123,11 @@
     <table
       class="min-w-full bg-white shadow-md rounded-lg mt-4 overflow-hidden"
     >
+      <caption
+        class="text-lg font-semibold text-gray-700 text-left p-4 bg-white"
+      >
+        List Users
+      </caption>
       <thead>
         <tr>
           <th
@@ -157,10 +162,12 @@
         >
           <td class="py-2 px-6">
             <div class="flex flex-col">
-              <span class="font-semibold"
+              <span class="font-bold"
                 >{{ user.firstName }} {{ user.lastName }}</span
               >
-              <span class="text-gray-500 text-sm">{{ user.email }}</span>
+              <span class="text-gray-500 text-sm font-normal">{{
+                user.email
+              }}</span>
             </div>
           </td>
           <td class="py-2 px-6">
