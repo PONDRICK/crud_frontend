@@ -1,13 +1,14 @@
 /* Sidebar styles */
 .sidebar {
-  position: fixed; /* ติดกับขอบซ้าย */
+  position: fixed; /* Fixed to the left edge */
   left: 0;
   top: 0;
-  width: 16rem;
-  height: 100vh;
+  width: 15%; /* Use 15% of the screen width */
+  height: 100vh; /* Full viewport height */
   background-color: white;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   z-index: 1000;
+  overflow-y: auto; /* Internal scroll if content overflows */
 }
 
 .sidebar ul {
@@ -37,9 +38,11 @@
 
 /* Main content adjustments */
 .main-content {
-  margin-left: 16rem;
+  margin-left: 15%; /* Leave space for the sidebar */
+  width: 85%; /* Use the remaining screen width */
   padding: 1rem;
-  flex-grow: 1;
+  max-height: 100vh; /* Don't exceed viewport height */
+  overflow-y: auto; /* Internal scroll if content overflows */
 }
 
 /* Profile placeholder */
@@ -98,14 +101,15 @@
 }
 
 /* Table styles */
-.table {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
 }
 
-td,
-th {
-  padding: 1rem;
+th,
+td {
+  padding: 0.5rem;
   text-align: left;
   font-size: 0.875rem;
   color: #4a4a4a;
@@ -113,6 +117,10 @@ th {
 
 thead {
   background-color: #f3f4f6;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9fafb;
 }
 
 tr:hover {
@@ -123,15 +131,22 @@ td:first-of-type {
   font-weight: bold;
 }
 
-button {
-  padding: 0.5rem;
-  border: none;
+td button {
   background-color: transparent;
+  border: none;
+  color: #cbd5e1;
   cursor: pointer;
+  padding: 0.5rem;
+  transition: color 0.3s ease;
 }
 
-button:hover {
-  color: #000;
+td button:hover {
+  color: #64748b;
+}
+
+.fa-pencil,
+.fa-trash {
+  font-size: 1.25rem;
 }
 
 .shadow-md {
@@ -151,34 +166,46 @@ button:hover {
 }
 
 /* Adjusting the search bar and controls */
-.bg-gray-100 {
-  background-color: #f3f4f6;
+.custom-search-bar {
+  width: 100%;
+  max-width: 700px;
+  padding: 0.05rem 0.5rem;
+  padding-left: 20px;
+  margin-left: 0;
+  background-color: #ffffff;
+  border-radius: 0.375rem;
+  display: flex;
+  align-items: center;
 }
 
-input[type="text"] {
-  width: 100%;
+.custom-search-bar i {
+  color: #9ca3af;
+}
+
+.custom-search-bar input[type="text"] {
+  flex-grow: 1;
   padding: 0.75rem;
   border: none;
   outline: none;
 }
 
-input::placeholder {
+.custom-search-bar input::placeholder {
   color: #9ca3af;
 }
 
 button {
-  background-color: #3b82f6; /* Blue color */
-
+  background-color: #3b82f6;
   font-weight: bold;
   padding: 0.5rem 1rem;
   border-radius: 0.375rem;
   cursor: pointer;
   transition: background-color 0.3s;
+  color: white;
+  border: none;
 }
 
 button:hover {
   background-color: #2563eb;
-  color: white;
 }
 
 select {
@@ -195,18 +222,12 @@ select:focus {
 
 .fa-sliders {
   font-size: 1.25rem;
+  cursor: pointer;
+  color: #6b7280;
 }
 
-.flex {
-  display: flex;
-}
-
-.justify-between {
-  justify-content: space-between;
-}
-
-.items-center {
-  align-items: center;
+.fa-sliders:hover {
+  color: #374151;
 }
 
 .gap-4 {
@@ -217,10 +238,6 @@ select:focus {
   border-radius: 0.375rem;
 }
 
-.bg-white {
-  background-color: #ffffff;
-}
-
 .shadow-sm {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
@@ -229,34 +246,54 @@ select:focus {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* Permission labels */
+.permission-label {
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 12px;
+  text-align: center;
+  width: 120px;
+  line-height: 1.2;
+}
+
+.permission-super-admin,
+.permission-admin,
+.permission-hr-admin {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.permission-employee {
+  background-color: #f1f3f5;
+  color: #adb5bd;
+}
+
 /* Responsive Design with Media Queries */
 @media (max-width: 1024px) {
   .sidebar {
-    position: absolute;
-    width: 12rem; /* Adjust sidebar width for smaller screens */
+    width: 12%; /* Adjust sidebar width for smaller screens */
   }
 
   .main-content {
-    margin-left: 12rem; /* Adjust content margin */
+    margin-left: 12%;
+    width: 88%;
   }
 }
 
 @media (max-width: 768px) {
   .sidebar {
-    position: absolute;
-    width: 10rem; /* Reduce width further */
+    width: 10%;
   }
 
   .main-content {
-    margin-left: 10rem;
+    margin-left: 10%;
+    width: 90%;
     padding: 1rem;
   }
 
-  table {
-    display: block; /* Make table scrollable */
-    overflow-x: auto;
-  }
-
+  table,
   thead,
   tbody,
   th,
@@ -265,8 +302,17 @@ select:focus {
     display: block;
   }
 
+  thead {
+    display: none;
+  }
+
+  tr {
+    margin-bottom: 1rem;
+  }
+
   td {
-    padding-left: 50%; /* Adjust for smaller screens */
+    padding-left: 50%;
+    position: relative;
   }
 
   td:before {
@@ -276,20 +322,25 @@ select:focus {
     width: 45%;
     padding-left: 0.5rem;
     white-space: nowrap;
+    font-weight: bold;
   }
 
   td:nth-of-type(1):before {
     content: "Name";
   }
+
   td:nth-of-type(2):before {
     content: "";
   }
+
   td:nth-of-type(3):before {
     content: "Create Date";
   }
+
   td:nth-of-type(4):before {
     content: "Role";
   }
+
   td:nth-of-type(5):before {
     content: "Action";
   }
@@ -297,67 +348,45 @@ select:focus {
 
 @media (max-width: 640px) {
   .sidebar {
-    display: none; /* Hide sidebar on very small screens */
+    display: none;
   }
 
   .main-content {
     margin-left: 0;
+    width: 100%;
     padding: 1rem;
   }
 
   .header,
   .pagination-controls {
     flex-direction: column;
+    align-items: flex-start;
   }
 
-  input {
+  .custom-search-bar {
     width: 100%;
+    max-width: 100%;
+  }
+
+  .flex-wrap {
+    flex-wrap: wrap;
   }
 }
-td button {
-  background-color: transparent; /* เอาพื้นหลังสีฟ้าออก */
-  border: none; /* ไม่มีเส้นขอบ */
-  color: #cbd5e1; /* ใช้สีอ่อน */
-  cursor: pointer;
-  padding: 0.5rem;
-  transition: color 0.3s ease;
+
+/* Additional styles to prevent overflow */
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Prevent scroll bars */
 }
 
-td button:hover {
-  color: #64748b; /* เปลี่ยนสีเมื่อ hover */
+html,
+body {
+  width: 100%;
+  height: 100%;
 }
 
-.fa-pencil,
-.fa-trash {
-  font-size: 1.25rem;
-}
-.permission-label {
-  display: inline-block;
-  padding: 0.5rem 1.5rem; /* เพิ่ม padding ด้านข้างให้กว้างขึ้น */
-  font-size: 0.875rem;
-  font-weight: 600;
-  border-radius: 12px; /* ปรับให้เป็นมุมโค้งมนเล็กน้อย */
-  text-align: center;
-  width: 120px; /* ทำให้ทุกป้ายมีขนาดกว้างเท่ากัน */
-  line-height: 1.2; /* ทำให้ข้อความอยู่ในแนวเดียวกัน */
-}
-
-.permission-super-admin,
-.permission-admin,
-.permission-hr-admin {
-  background-color: #3b82f6; /* ฟ้าเข้ม */
-  color: white;
-}
-
-.permission-employee {
-  background-color: #f1f3f5; /* เทาอ่อน */
-  color: #adb5bd; /* สีเทาอ่อนสำหรับข้อความ */
-}
-/* เพิ่มสไตล์นี้ */
-.custom-search-bar {
-  width: 100%; /* ปรับความกว้างตามที่ต้องการ */
-  max-width: 700px; /* กำหนดความกว้างสูงสุด */
-  padding: 0.05rem 0.5rem;
-  padding-left: 20px;
-  margin-left: 0;
+.main-content,
+.sidebar {
+  max-height: 100vh;
 }
