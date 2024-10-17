@@ -6,7 +6,7 @@ import { EditUserComponent } from '../edit-user/edit-user.component'; // Import 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
-
+import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-users-dashboard',
   standalone: true,
@@ -19,6 +19,7 @@ import Swal from 'sweetalert2';
     AsyncPipe,
     AddUserComponent,
     EditUserComponent,
+    MatIconModule,
     CommonModule,
   ],
 })
