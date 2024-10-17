@@ -1,6 +1,9 @@
 <div class="flex">
   <!-- Sidebar -->
-  <div class="sidebar bg-white shadow-md">
+  <div
+    class="sidebar bg-white shadow-md"
+    [class.sidebar-blurred]="isAddUserVisible || isEditUserVisible"
+  >
     <div class="p-4">
       <h1 class="font-bold text-lg">YOURLOGO</h1>
     </div>
@@ -251,7 +254,7 @@
     <!-- Add User Modal -->
     <div
       *ngIf="isAddUserVisible"
-      class="fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center"
+      class="fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center z-50"
     >
       <div class="bg-white rounded-lg w-full max-w-4xl mx-4">
         <app-add-user
@@ -264,7 +267,7 @@
     <!-- Edit User Modal -->
     <div
       *ngIf="isEditUserVisible"
-      class="fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center"
+      class="fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center z-50"
     >
       <div class="bg-white rounded-lg w-full max-w-4xl mx-4">
         <app-edit-user

@@ -139,10 +139,12 @@ export class UsersDashboardComponent implements OnInit {
 
   showAddUserForm() {
     this.isAddUserVisible = true;
+    document.body.classList.add('modal-open');
   }
 
   hideAddUserForm() {
     this.isAddUserVisible = false;
+    document.body.classList.remove('modal-open');
   }
 
   onUserAdded() {
@@ -172,10 +174,12 @@ export class UsersDashboardComponent implements OnInit {
   showEditUserForm(userId: string) {
     this.editingUserId = userId;
     this.isEditUserVisible = true;
+    document.body.classList.add('modal-open');
   }
 
   hideEditUserForm() {
     this.isEditUserVisible = false;
+    document.body.classList.remove('modal-open');
   }
 
   onUserEdited() {
