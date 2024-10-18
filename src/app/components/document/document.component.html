@@ -2,9 +2,8 @@
 <h2 class="text-2xl font-semibold text-blue-600 mb-4 ml-4">Documents</h2>
 
 <!-- Search Bar & Controls -->
-<div
-  class="flex flex-wrap justify-between items-center mb-4 gap-4 bg-gray-100 p-4 rounded-lg"
->
+<!-- Search Bar and Controls -->
+<div class="flex justify-between items-center mb-4 p-4 rounded-lg">
   <!-- Search Bar -->
   <div
     class="custom-search-bar flex items-center bg-white rounded-md shadow-sm border border-gray-300 ml-2"
@@ -19,26 +18,48 @@
     />
   </div>
 
-  <!-- Controls -->
+  <!-- Sort and Filter Controls -->
   <div class="flex items-center gap-4">
-    <button
-      class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow"
-      (click)="addDocument()"
-    >
-      Add document +
-    </button>
-
+    <span class="text-gray-500">Sort by</span>
     <select class="border border-gray-300 rounded p-2 text-gray-600">
-      <option value="this-month">This Month</option>
-      <option value="last-month">Last Month</option>
+      <option value="date">Date</option>
+      <option value="name">Name</option>
     </select>
+    <i class="fa fa-sliders text-gray-500"></i>
+  </div>
+</div>
 
-    <select class="border border-gray-300 rounded p-2 text-gray-600">
+<!-- Action Buttons -->
+<div class="flex justify-between items-center mb-4">
+  <!-- Action Buttons -->
+  <div class="flex items-center gap-2">
+    <button class="action-button">
+      <i class="ri-file-copy-line text-blue-600"></i>
+    </button>
+    <button class="action-button">
+      <i class="ri-fullscreen-line text-blue-600"></i>
+    </button>
+    <button class="action-button">
+      <i class="ri-printer-line text-blue-600"></i>
+    </button>
+    <button class="action-button">
+      <i class="ri-delete-bin-line text-blue-600"></i>
+    </button>
+  </div>
+
+  <!-- Filter and Add New Document -->
+  <div class="flex items-center gap-4">
+    <select class="dropdown">
+      <option value="thisMonth">This Month</option>
+      <option value="lastMonth">Last Month</option>
+    </select>
+    <select class="dropdown">
       <option value="documents">Documents</option>
       <option value="images">Images</option>
     </select>
-
-    <i class="fa fa-sliders text-gray-500 cursor-pointer"></i>
+    <button class="add-button">
+      <i class="ri-add-line"></i>
+    </button>
   </div>
 </div>
 
