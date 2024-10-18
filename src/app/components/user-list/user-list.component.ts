@@ -1,19 +1,19 @@
+// user-list.component.ts
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
-import { AddUserComponent } from '../add-user/add-user.component'; // Import AddUserComponent
-import { EditUserComponent } from '../edit-user/edit-user.component'; // Import EditUserComponent
+import { AddUserComponent } from '../add-user/add-user.component';
+import { EditUserComponent } from '../edit-user/edit-user.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { MatIconModule } from '@angular/material/icon';
-import { RouterModule } from '@angular/router';
-import { UserListComponent } from '../user-list/user-list.component';
+
 @Component({
-  selector: 'app-users-dashboard',
+  selector: 'app-user-list',
+  templateUrl: './user-list.component.html',
+  styleUrls: ['./user-list.component.css'],
   standalone: true,
-  templateUrl: './users-dashboard.component.html',
-  styleUrls: ['./users-dashboard.component.css'],
   imports: [
     FormsModule,
     NgIf,
@@ -23,11 +23,9 @@ import { UserListComponent } from '../user-list/user-list.component';
     EditUserComponent,
     MatIconModule,
     CommonModule,
-    UserListComponent,
-    RouterModule,
   ],
 })
-export class UsersDashboardComponent implements OnInit {
+export class UserListComponent implements OnInit {
   users: any[] = [];
   filteredUsers: any[] = [];
   paginatedUsers: any[] = [];
@@ -40,10 +38,9 @@ export class UsersDashboardComponent implements OnInit {
   isAddUserVisible = false;
   isEditUserVisible = false;
   editingUserId: string | null = null;
-  selectedSort: string = 'name'; // default sort by name
-  selectedSavedSearch: string = ''; // default empty
-  savedSearches: string[] = []; // example array for saved searches
-  currentComponent: string = 'dashboard';
+  selectedSort: string = 'name';
+  selectedSavedSearch: string = '';
+  savedSearches: string[] = [];
 
   constructor(private apiService: ApiService) {}
 
@@ -175,11 +172,7 @@ export class UsersDashboardComponent implements OnInit {
       }
     });
   }
-  // Default to 'dashboard'
 
-  setCurrentComponent(componentName: string) {
-    this.currentComponent = componentName;
-  }
   showEditUserForm(userId: string) {
     this.editingUserId = userId;
     this.isEditUserVisible = true;
