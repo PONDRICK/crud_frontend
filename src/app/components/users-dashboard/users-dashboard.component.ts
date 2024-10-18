@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { UserListComponent } from '../user-list/user-list.component';
+import { DocumentComponent } from '../document/document.component';
 @Component({
   selector: 'app-users-dashboard',
   standalone: true,
@@ -25,6 +26,7 @@ import { UserListComponent } from '../user-list/user-list.component';
     CommonModule,
     UserListComponent,
     RouterModule,
+    DocumentComponent,
   ],
 })
 export class UsersDashboardComponent implements OnInit {

@@ -1,0 +1,201 @@
+/* Pagination controls */
+.pagination-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.pagination-controls .gap-1 {
+  gap: 0.25rem;
+}
+
+.pagination-controls select {
+  padding: 0.3rem;
+  margin-left: 0.25rem;
+}
+
+.pagination-controls span {
+  margin-left: 0.5rem;
+}
+
+.pagination-controls button {
+  background-color: transparent;
+  padding: 0.2rem 0.5rem;
+  margin-left: 0.5rem;
+}
+
+/* Adjusting the search bar and controls */
+.custom-search-bar {
+  width: 100%;
+  max-width: 700px;
+  padding: 0.05rem 0.5rem;
+  padding-left: 20px;
+  margin-left: -15px;
+  background-color: #ffffff;
+  border-radius: 0.375rem;
+  display: flex;
+  align-items: center;
+}
+
+.custom-search-bar i {
+  color: #9ca3af;
+}
+
+.custom-search-bar input[type="text"] {
+  flex-grow: 1;
+  padding: 0.75rem;
+  border: none;
+  outline: none;
+}
+
+.custom-search-bar input::placeholder {
+  color: #9ca3af;
+}
+
+button {
+  background-color: #3b82f6;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  color: white;
+  border: none;
+}
+
+button:hover {
+  background-color: #2563eb;
+}
+
+select {
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  border: 1px solid #d1d5db;
+  color: #6b7280;
+}
+
+select:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.fa-sliders {
+  font-size: 1.25rem;
+  cursor: pointer;
+  color: #6b7280;
+}
+
+.fa-sliders:hover {
+  color: #374151;
+}
+
+.gap-4 {
+  gap: 1rem;
+}
+
+.rounded {
+  border-radius: 0.375rem;
+}
+
+.shadow-sm {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.shadow {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Table styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  table-layout: fixed;
+}
+
+th,
+td {
+  padding: 0.5rem;
+  text-align: left;
+  font-size: 0.875rem;
+  color: #4a4a4a;
+  word-wrap: break-word;
+}
+
+thead {
+  background-color: #f3f4f6;
+}
+
+tr:hover {
+  background-color: #f3f4f6;
+}
+
+td:first-of-type {
+  font-weight: bold;
+}
+
+td button {
+  background-color: transparent;
+  border: none;
+  color: #cbd5e1;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+td button:hover {
+  color: #64748b;
+}
+
+/* Responsive Design with Media Queries */
+@media (max-width: 768px) {
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tr {
+    margin-bottom: 1rem;
+  }
+
+  td {
+    padding-left: 50%;
+    position: relative;
+  }
+
+  td:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 45%;
+    padding-left: 0.5rem;
+    white-space: nowrap;
+    font-weight: bold;
+  }
+
+  td:nth-of-type(1):before {
+    content: "Title";
+  }
+
+  td:nth-of-type(2):before {
+    content: "Date";
+  }
+
+  td:nth-of-type(3):before {
+    content: "Description";
+  }
+
+  td:nth-of-type(4):before {
+    content: "Action";
+  }
+}

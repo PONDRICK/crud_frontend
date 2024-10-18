@@ -23,7 +23,10 @@
         <i class="ri-bar-chart-fill mr-4"></i>
         <a href="#" class="font-normal">Users</a>
       </li>
-      <li class="flex items-center p-4 text-gray-600">
+      <li
+        class="flex items-center p-4 text-gray-600"
+        (click)="setCurrentComponent('documents')"
+      >
         <i class="ri-article-line mr-4"></i>
         <a href="#" class="font-normal">Documents</a>
       </li>
@@ -77,6 +80,7 @@
 
     <div>
       <app-user-list *ngIf="currentComponent === 'dashboard'"></app-user-list>
+      <app-document *ngIf="currentComponent === 'documents'"></app-document>
     </div>
   </div>
 </div>

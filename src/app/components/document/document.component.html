@@ -1,0 +1,150 @@
+<!-- document.component.html -->
+<h2 class="text-2xl font-semibold text-blue-600 mb-4 ml-4">Documents</h2>
+
+<!-- Search Bar & Controls -->
+<div
+  class="flex flex-wrap justify-between items-center mb-4 gap-4 bg-gray-100 p-4 rounded-lg"
+>
+  <!-- Search Bar -->
+  <div
+    class="custom-search-bar flex items-center bg-white rounded-md shadow-sm border border-gray-300 ml-2"
+  >
+    <i class="fa fa-search text-gray-400 mr-2"></i>
+    <input
+      type="text"
+      class="flex-grow bg-transparent outline-none"
+      placeholder="Search documents"
+      [(ngModel)]="searchText"
+      (input)="filterDocuments()"
+    />
+  </div>
+
+  <!-- Controls -->
+  <div class="flex items-center gap-4">
+    <button
+      class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow"
+      (click)="addDocument()"
+    >
+      Add document +
+    </button>
+
+    <select class="border border-gray-300 rounded p-2 text-gray-600">
+      <option value="this-month">This Month</option>
+      <option value="last-month">Last Month</option>
+    </select>
+
+    <select class="border border-gray-300 rounded p-2 text-gray-600">
+      <option value="documents">Documents</option>
+      <option value="images">Images</option>
+    </select>
+
+    <i class="fa fa-sliders text-gray-500 cursor-pointer"></i>
+  </div>
+</div>
+
+<!-- Document List Table -->
+<table class="min-w-full bg-white shadow-md rounded-lg mt-4 overflow-hidden">
+  <caption class="text-lg font-semibold text-gray-700 text-left p-4 bg-white">
+    List Documents
+  </caption>
+  <thead>
+    <tr>
+      <th
+        class="py-2 px-6 bg-gray-100 text-left text-sm uppercase text-gray-600"
+      >
+        Title
+      </th>
+      <th
+        class="py-2 px-6 bg-gray-100 text-left text-sm uppercase text-gray-600"
+      >
+        Date
+      </th>
+      <th
+        class="py-2 px-6 bg-gray-100 text-left text-sm uppercase text-gray-600"
+      >
+        Description
+      </th>
+      <th
+        class="py-2 px-6 bg-gray-100 text-left text-sm uppercase text-gray-600"
+      >
+        Action
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let document of paginatedDocuments" class="border-b">
+      <td class="py-2 px-6">
+        <div class="flex items-center">
+          <i class="ri-file-line text-3xl text-blue-600 mr-2"></i>
+          <div class="flex flex-col">
+            <span class="font-bold">{{ document.title }}</span>
+          </div>
+        </div>
+      </td>
+      <td class="py-2 px-6">{{ document.date }}</td>
+      <td class="py-2 px-6">
+        <p class="text-gray-500 text-sm">{{ document.description }}</p>
+      </td>
+      <td class="py-2 px-6 flex gap-2">
+        <button
+          class="text-gray-400 hover:text-gray-600"
+          (click)="editDocument(document.id)"
+        >
+          <i class="fa fa-pencil" aria-hidden="true"></i>
+        </button>
+        <button
+          class="text-gray-400 hover:text-gray-600"
+          (click)="deleteDocument(document.id)"
+        >
+          <i class="fa fa-trash" aria-hidden="true"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Pagination Controls -->
+<div
+  class="flex flex-wrap justify-between items-center mt-4 pagination-controls gap-4"
+>
+  <div class="flex items-center gap-1">
+    <span class="text-gray-500">Items per page:</span>
+    <select
+      class="border-none bg-transparent text-gray-600 p-1 underline focus:outline-none focus:ring-0"
+      [(ngModel)]="pageSize"
+      (change)="updatePagination()"
+    >
+      <option *ngFor="let size of pageSizes" [value]="size">
+        {{ size }}
+      </option>
+    </select>
+  </div>
+
+  <div class="flex items-center gap-1 text-gray-500">
+    <span
+      >{{ (currentPage - 1) * pageSize + 1 }}-{{
+        currentPage * pageSize > totalCount
+          ? totalCount
+          : currentPage * pageSize
+      }}
+      of {{ totalCount }}</span
+    >
+  </div>
+
+  <div class="flex items-center gap-2 text-gray-500">
+    <button
+      (click)="previousPage()"
+      [disabled]="currentPage === 1"
+      class="disabled:text-gray-300"
+    >
+      <i class="fa fa-chevron-left"></i>
+    </button>
+    <button
+      (click)="nextPage()"
+      [disabled]="currentPage === totalPages"
+      class="disabled:text-gray-300"
+    >
+      <i class="fa fa-chevron-right"></i>
+    </button>
+  </div>
+</div>
