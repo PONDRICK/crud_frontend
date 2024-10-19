@@ -30,10 +30,45 @@ export class DocumentComponent implements OnInit {
     },
     {
       id: '2',
-      title: 'Dolor sit amet',
-      date: 'April 10, 2022',
-      description:
-        'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices.',
+      title: 'Lorem ipsum',
+      date: 'April 9, 2022',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    },
+    {
+      id: '3',
+      title: 'Lorem ipsum',
+      date: 'April 9, 2022',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    },
+    {
+      id: '4',
+      title: 'Lorem ipsum',
+      date: 'April 9, 2022',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    },
+    {
+      id: '5',
+      title: 'Lorem ipsum',
+      date: 'April 9, 2022',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    },
+    {
+      id: '6',
+      title: 'Lorem ipsum',
+      date: 'April 9, 2022',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    },
+    {
+      id: '7',
+      title: 'Lorem ipsum',
+      date: 'April 9, 2022',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    },
+    {
+      id: '8',
+      title: 'Lorem ipsum',
+      date: 'April 9, 2022',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     },
     // Add more document objects here
   ];
