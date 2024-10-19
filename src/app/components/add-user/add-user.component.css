@@ -11,7 +11,9 @@
   margin-right: -20px;
   width: calc(100% + 40px); /* ปรับความกว้างให้ครอบคลุมพื้นที่ */
 }
-
+input::placeholder {
+  color: black; /* กำหนดสีของ placeholder เป็นสีดำ */
+}
 /* Button styles */
 .button-submit {
   background-color: #1d4ed8; /* Color of Add User button */
