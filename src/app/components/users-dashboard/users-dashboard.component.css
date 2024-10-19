@@ -119,3 +119,13 @@ body {
   overflow: auto;
   z-index: 50;
 }
+.selected-item::after {
+  content: "";
+  position: absolute;
+  right: 0; /* Position it on the right side */
+  top: 50%; /* Vertically center it */
+  transform: translateY(-50%); /* Adjust for perfect centering */
+  height: 70%; /* Adjust the height as needed */
+  width: 4px; /* Adjust the width of the blue line */
+  background-color: #3b82f6; /* Blue color */
+}

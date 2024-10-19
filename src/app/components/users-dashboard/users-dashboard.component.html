@@ -9,10 +9,11 @@
     </div>
     <ul class="mt-8">
       <li
-        class="flex items-center p-4"
+        class="flex items-center p-4 relative"
         [ngClass]="{
           'text-blue-600': currentComponent === 'dashboard',
-          'text-gray-600': currentComponent !== 'dashboard'
+          'text-gray-600': currentComponent !== 'dashboard',
+          'selected-item': currentComponent === 'dashboard'
         }"
         (click)="setCurrentComponent('dashboard')"
       >
@@ -24,10 +25,11 @@
         <a href="#" class="font-normal">Users</a>
       </li>
       <li
-        class="flex items-center p-4 text-gray-600"
+        class="flex items-center p-4 text-gray-600 relative"
         [ngClass]="{
           'text-blue-600': currentComponent === 'documents',
-          'text-gray-600': currentComponent !== 'documents'
+          'text-gray-600': currentComponent !== 'documents',
+          'selected-item': currentComponent === 'documents'
         }"
         (click)="setCurrentComponent('documents')"
       >
