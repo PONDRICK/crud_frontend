@@ -117,3 +117,6 @@
   margin-left: 0;
   margin-right: 0;
 }
+input::placeholder {
+  color: black; /* กำหนดสีของ placeholder เป็นสีดำ */
+}

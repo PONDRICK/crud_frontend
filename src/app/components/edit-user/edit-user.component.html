@@ -14,11 +14,11 @@
     <!-- User ID (read-only) -->
     <div class="flex space-x-4">
       <div class="flex-1">
-        <label for="id" class="block mb-2">User ID *</label>
         <input
           formControlName="id"
           type="text"
           class="border p-2 w-full rounded"
+          placeholder="User ID *"
           readonly
         />
       </div>
@@ -28,11 +28,11 @@
     <div class="flex space-x-4 mt-4">
       <!-- First Name -->
       <div class="flex-1">
-        <label for="firstName" class="block mb-2">First Name *</label>
         <input
           formControlName="firstName"
           type="text"
           class="border p-2 w-full rounded"
+          placeholder="First Name *"
         />
         <div
           *ngIf="
@@ -46,11 +46,11 @@
       </div>
       <!-- Last Name -->
       <div class="flex-1">
-        <label for="lastName" class="block mb-2">Last Name *</label>
         <input
           formControlName="lastName"
           type="text"
           class="border p-2 w-full rounded"
+          placeholder="Last Name *"
         />
         <div
           *ngIf="
@@ -68,11 +68,11 @@
     <div class="flex space-x-4 mt-4">
       <!-- Email -->
       <div class="flex-1">
-        <label for="email" class="block mb-2">Email *</label>
         <input
           formControlName="email"
           type="email"
           class="border p-2 w-full rounded"
+          placeholder="Email *"
         />
         <div
           *ngIf="
@@ -94,16 +94,15 @@
       </div>
       <!-- Mobile No -->
       <div class="flex-1">
-        <label for="phone" class="block mb-2">Mobile No</label>
         <input
           formControlName="phone"
           type="text"
           class="border p-2 w-full rounded"
+          placeholder="Mobile No"
         />
       </div>
       <!-- Select Role Type -->
       <div class="flex-1">
-        <label for="roleId" class="block mb-2">Select Role Type *</label>
         <select formControlName="roleId" class="border p-2 w-full rounded">
           <option value="">-- Select Role --</option>
           <option *ngFor="let role of roles" [value]="role.roleId">
@@ -126,11 +125,11 @@
     <div class="flex space-x-4 mt-4">
       <!-- Username -->
       <div class="flex-1">
-        <label for="username" class="block mb-2">Username *</label>
         <input
           formControlName="username"
           type="text"
           class="border p-2 w-full rounded"
+          placeholder="Username *"
         />
         <div
           *ngIf="
@@ -144,22 +143,20 @@
       </div>
       <!-- Password -->
       <div class="flex-1">
-        <label for="password" class="block mb-2">Password</label>
         <input
           formControlName="password"
           type="password"
           class="border p-2 w-full rounded"
-          placeholder="Leave blank to keep current password"
+          placeholder="Password *"
         />
       </div>
       <!-- Confirm Password -->
       <div class="flex-1">
-        <label for="confirmPassword" class="block mb-2">Confirm Password</label>
         <input
           formControlName="confirmPassword"
           type="password"
           class="border p-2 w-full rounded"
-          placeholder="Leave blank if not changing password"
+          placeholder="Confirm Password *"
         />
         <div
           *ngIf="
