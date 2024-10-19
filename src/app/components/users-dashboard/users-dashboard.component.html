@@ -25,6 +25,10 @@
       </li>
       <li
         class="flex items-center p-4 text-gray-600"
+        [ngClass]="{
+          'text-blue-600': currentComponent === 'documents',
+          'text-gray-600': currentComponent !== 'documents'
+        }"
         (click)="setCurrentComponent('documents')"
       >
         <i class="ri-article-line mr-4"></i>
